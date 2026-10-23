@@ -1,0 +1,442 @@
+<!doctype html>
+<!--
+  Microsoft Store ekran görüntüleri. `npm run dev` açıkken:
+    http://localhost:1420/store/screenshots/?slide=hero&lang=tr
+  Uygulama sahte veriyle bir pencere içinde çalışır ve her slayt için ilgili duruma getirilir.
+  PNG'ler: scripts/store-screenshots.ps1 (3840×2160).
+-->
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <title>SolidClean Store</title>
+    <style>
+      :root {
+        --deep: #073f38;
+        --teal: #0f8a77;
+        --mint: #3fd0b2;
+        --ink: #04231f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--deep);
+      }
+
+      .slide {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        color: #fff;
+        font-family: "Segoe UI Variable Text", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(1100px 760px at 4% 0%, rgba(255, 255, 255, 0.2), transparent 62%),
+          radial-gradient(900px 700px at 100% 100%, rgba(63, 208, 178, 0.55), transparent 65%),
+          linear-gradient(128deg, #06463e 0%, #0d7c6b 42%, #17a58d 72%, #3fd0b2 100%);
+      }
+
+      /* Logodaki karolara gönderme: arka planda soluk bir treemap. */
+      .tiles {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .tiles i {
+        position: absolute;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.055);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+      }
+
+      .copy {
+        position: absolute;
+        z-index: 2;
+      }
+
+      h1 {
+        margin: 0;
+        font: 700 112px/0.98 "Segoe UI Variable Display", "Segoe UI", sans-serif;
+        letter-spacing: -0.015em;
+        white-space: pre-line;
+        text-wrap: balance;
+        text-shadow: 0 2px 24px rgba(4, 35, 31, 0.25);
+      }
+
+      .copy p {
+        margin: 28px 0 0;
+        font: 600 32px/1.32 "Segoe UI Variable Text", "Segoe UI", sans-serif;
+        color: rgba(255, 255, 255, 0.92);
+        text-wrap: pretty;
+      }
+
+      .chips {
+        display: flex;
+        gap: 12px;
+        margin-top: 36px;
+      }
+
+      .chips span {
+        padding: 10px 20px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        font: 600 24px "Segoe UI Variable Text", "Segoe UI", sans-serif;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 44px;
+        font: 600 34px "Segoe UI Variable Display", "Segoe UI", sans-serif;
+      }
+
+      .brand img {
+        width: 64px;
+        height: 64px;
+        filter: drop-shadow(0 4px 12px rgba(4, 35, 31, 0.35));
+      }
+
+      /* Yerleşimler */
+      .left .copy {
+        left: 96px;
+        top: 0;
+        bottom: 0;
+        width: 510px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .top .copy {
+        left: 0;
+        right: 0;
+        top: 64px;
+        text-align: center;
+      }
+
+      .top h1 {
+        font-size: 92px;
+        white-space: normal;
+      }
+
+      .top .copy p {
+        max-width: 1240px;
+        margin: 20px auto 0;
+        font-size: 30px;
+      }
+
+      .right .copy {
+        right: 96px;
+        top: 0;
+        bottom: 0;
+        width: 560px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      /* Windows 11 penceresi */
+      .window {
+        position: absolute;
+        z-index: 1;
+        transform-origin: top left;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #f3f2ef;
+        box-shadow:
+          0 0 0 1px rgba(0, 0, 0, 0.12),
+          0 30px 60px rgba(2, 30, 26, 0.35),
+          0 80px 160px rgba(2, 30, 26, 0.35);
+      }
+
+      .titlebar {
+        display: flex;
+        align-items: center;
+        height: 34px;
+        padding-left: 14px;
+        background: #eeedea;
+        color: #1d1d1f;
+        font: 12px "Segoe UI Variable Text", "Segoe UI", sans-serif;
+      }
+
+      .titlebar img {
+        width: 16px;
+        height: 16px;
+        margin-right: 10px;
+      }
+
+      .titlebar .controls {
+        display: flex;
+        margin-left: auto;
+      }
+
+      .titlebar .controls span {
+        width: 46px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        font: 10px "Segoe Fluent Icons", "Segoe MDL2 Assets";
+      }
+
+      .window.split .titlebar {
+        background: linear-gradient(90deg, #eeedea 50%, #1b1b1f 50%);
+      }
+
+      .window.split .controls {
+        color: #eeece8;
+      }
+
+      .viewport {
+        position: relative;
+      }
+
+      .viewport iframe {
+        display: block;
+        border: 0;
+      }
+
+      /* Açık / koyu yan yana */
+      .split .viewport iframe {
+        position: absolute;
+        inset: 0;
+      }
+
+      .split .viewport iframe.dark {
+        clip-path: inset(0 0 0 50%);
+      }
+
+      .split .divider {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 4px;
+        margin-left: -2px;
+        background: #fff;
+        box-shadow: 0 0 24px rgba(0, 0, 0, 0.35);
+        z-index: 3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide" id="slide">
+      <div class="tiles" id="tiles"></div>
+      <div class="copy" id="copy"></div>
+    </div>
+
+    <script type="module">
+      const params = new URLSearchParams(location.search);
+      const lang = params.get("lang") === "en" ? "en" : "tr";
+      const slideId = params.get("slide") ?? "hero";
+      // Uygulamanın dili ayrıca seçilebilir (?ui=de); diğer dilleri denetlemek için.
+      const uiLang = params.get("ui") ?? lang;
+      document.documentElement.lang = lang;
+
+      const LOGO = "/src/assets/logo.svg";
+
+      // Metinler. Türkçe büyük harfler elle yazıldı (İ, Ş, Ğ...).
+      const COPY = {
+        hero: {
+          tr: { h: "GÖR.\nANLA.\nTEMİZLE.", p: "Diskinizi saniyeler içinde tarar, neyin yer kapladığını gösterir ve neyin güvenle silinebileceğini söyler.", chips: ["Ücretsiz", "Açık kaynak", "Reklamsız"] },
+          en: { h: "SEE IT.\nKNOW IT.\nCLEAN IT.", p: "Scans your disk in seconds, shows what takes up space and tells you what is safe to remove.", chips: ["Free", "Open source", "No ads"] },
+        },
+        map: {
+          tr: { h: "NE YER KAPLIYOR, BİR BAKIŞTA", p: "Büyük kutu, büyük klasör. Tıklayıp içine inin, diskinizi neyin doldurduğunu hemen görün." },
+          en: { h: "EVERY GIGABYTE AT A GLANCE", p: "Big box, big folder. Click to dive in and see right away what fills your drive." },
+        },
+        explain: {
+          tr: { h: "NEYİ SİLDİĞİNİZİ BİLİN", p: "Her öneri ne olduğunu, silinirse ne olacağını ve kendiliğinden geri gelip gelmeyeceğini açıkça yazar." },
+          en: { h: "KNOW WHAT YOU DELETE", p: "Every suggestion explains what it is, what happens if you remove it and whether it comes back on its own." },
+        },
+        safety: {
+          tr: { h: "ÖNCE GÜVENLİK", p: "Silinenler Geri Dönüşüm Kutusu'na gider. Açık uygulamaların dosyaları atlanır; Windows'a ve kişisel klasörlerinize dokunulmaz." },
+          en: { h: "SAFETY FIRST", p: "Removed items go to the Recycle Bin. Files of open apps are skipped, and Windows and your personal folders are never touched." },
+        },
+        apps: {
+          tr: { h: "UYGULAMALARI DOĞRU YOLDAN KALDIRIN", p: "Her uygulamanın kapladığı yeri görün. SolidClean klasör silmek yerine sizi Windows'un kendi kaldırma sayfasına yönlendirir." },
+          en: { h: "REMOVE APPS THE RIGHT WAY", p: "See how much space each app takes. Instead of deleting folders, SolidClean sends you to Windows' own Installed apps page." },
+        },
+        theme: {
+          tr: { h: "GECE YA DA GÜNDÜZ", p: "Windows temanıza uyar: açık ya da koyu, gözünüz rahat etsin." },
+          en: { h: "DAY OR NIGHT", p: "Follows your Windows theme, light or dark, easy on your eyes." },
+        },
+      };
+
+      // Pencere: uygulamanın kendi boyutu (CSS px) ve slayttaki ölçeği.
+      const LAYOUTS = {
+        left: { app: [1400, 880], scale: 0.9, x: 640, y: 126 },
+        top: { app: [1400, 800], scale: 0.92, x: 316, y: 300 },
+        right: { app: [1400, 880], scale: 0.82, x: 96, y: 160 },
+      };
+
+      const SLIDES = {
+        hero: { layout: "left", brand: true, drive: "home" },
+        map: { layout: "top", drive: "home", hover: [0.2, 0.28] },
+        explain: { layout: "right", drive: "home", expand: "claude" },
+        safety: { layout: "top", drive: "home", clean: true },
+        apps: { layout: "left", drive: "drive", hover: [0.6, 0.35], uninstall: true },
+        theme: { layout: "top", drive: "home", split: true },
+      };
+
+      const slide = SLIDES[slideId];
+      const copy = COPY[slideId][lang];
+      const layout = LAYOUTS[slide.layout];
+      const root = document.getElementById("slide");
+      root.classList.add(slide.layout);
+
+      // Arka plandaki soluk karolar.
+      const tiles = [
+        [-60, 640, 420, 520],
+        [380, 820, 300, 340],
+        [1560, -80, 420, 360],
+        [1700, 300, 300, 260],
+        [-80, -120, 300, 260],
+      ];
+      document.getElementById("tiles").innerHTML = tiles
+        .map(([x, y, w, h]) => `<i style="left:${x}px;top:${y}px;width:${w}px;height:${h}px"></i>`)
+        .join("");
+
+      const copyEl = document.getElementById("copy");
+      copyEl.innerHTML = `
+        ${slide.brand ? `<div class="brand"><img src="${LOGO}" alt="" />SolidClean</div>` : ""}
+        <h1></h1><p></p>
+        ${copy.chips ? `<div class="chips">${copy.chips.map((c) => `<span>${c}</span>`).join("")}</div>` : ""}`;
+      copyEl.querySelector("h1").textContent = copy.h;
+      copyEl.querySelector("p").textContent = copy.p;
+
+      // Uzun kelimeler (UYGULAMALARI gibi) sütuna sığana kadar başlık küçülür.
+      const h1 = copyEl.querySelector("h1");
+      for (let size = parseFloat(getComputedStyle(h1).fontSize); h1.scrollWidth > h1.clientWidth && size > 48; size -= 2) {
+        h1.style.fontSize = `${size - 2}px`;
+      }
+
+      // Pencere ve içindeki uygulama.
+      const [appW, appH] = layout.app;
+      const win = document.createElement("div");
+      win.className = "window" + (slide.split ? " split" : "");
+      win.style.cssText = `left:${layout.x}px;top:${layout.y}px;width:${appW}px;transform:scale(${layout.scale})`;
+      win.innerHTML = `
+        <div class="titlebar"><img src="${LOGO}" alt="" />SolidClean
+          <div class="controls"><span>&#xE921;</span><span>&#xE922;</span><span>&#xE8BB;</span></div>
+        </div>
+        <div class="viewport" style="width:${appW}px;height:${appH}px"></div>`;
+      root.appendChild(win);
+      const viewport = win.querySelector(".viewport");
+
+      function addFrame(dark) {
+        const frame = document.createElement("iframe");
+        frame.width = appW;
+        frame.height = appH;
+        frame.src = `/?lang=${uiLang}&theme=${dark ? "dark" : "light"}`;
+        if (dark) frame.className = "dark";
+        viewport.appendChild(frame);
+        return frame;
+      }
+
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+      async function until(fn, timeout = 15000) {
+        const start = performance.now();
+        while (performance.now() - start < timeout) {
+          const value = fn();
+          if (value) return value;
+          await sleep(60);
+        }
+        throw new Error("timeout");
+      }
+
+      /**
+       * Uygulama sistem temasını izler; görseller her bilgisayarda aynı çıksın diye tema sabitlenir.
+       * Koyu tema kuralları medya sorgusundan çıkarılıp ya doğrudan uygulanır ya da silinir.
+       */
+      function setTheme(doc, dark) {
+        for (const sheet of doc.styleSheets) {
+          const rules = [...sheet.cssRules];
+          for (let i = rules.length - 1; i >= 0; i--) {
+            const rule = rules[i];
+            // Kural iframe'in kendi penceresinden geldiği için `instanceof CSSMediaRule` burada çalışmaz.
+            if (rule.conditionText?.includes("prefers-color-scheme: dark")) {
+              const inner = [...rule.cssRules].map((r) => r.cssText).join("\n");
+              sheet.deleteRule(i);
+              if (dark) sheet.insertRule(`@media all { ${inner} }`, i);
+            }
+          }
+        }
+      }
+
+      async function drive(frame) {
+        await until(() => frame.contentDocument?.querySelector(".topbar-actions .btn.primary:not(:disabled)"));
+        const doc = frame.contentDocument;
+        const win = frame.contentWindow;
+        setTheme(doc, frame.classList.contains("dark"));
+
+        if (slide.drive === "home") {
+          const select = doc.querySelector(".topbar-actions > select");
+          const home = [...select.options].find((o) => o.value.toLowerCase().includes("users"));
+          const setter = Object.getOwnPropertyDescriptor(win.HTMLSelectElement.prototype, "value").set;
+          setter.call(select, home.value);
+          select.dispatchEvent(new win.Event("change", { bubbles: true }));
+          await sleep(100);
+        }
+        doc.querySelector(".topbar-actions .btn.primary").click();
+        await until(() => doc.querySelector(".rec-row"));
+        // Öneriler gelince ağaç bir kez daha yüklenir; ekran otursun.
+        await sleep(1500);
+
+        if (slide.hover) {
+          // Analiz bitince ağaç yeniden yüklenip odak sıfırlanabilir; odak gelene kadar tekrar dene.
+          const [fx, fy] = slide.hover;
+          const before = doc.querySelector(".focus")?.textContent;
+          await until(() => {
+            const canvas = doc.querySelector(".treemap canvas");
+            const box = canvas.getBoundingClientRect();
+            canvas.dispatchEvent(new win.MouseEvent("mouseout", { bubbles: true, relatedTarget: doc.body }));
+            canvas.dispatchEvent(
+              new win.MouseEvent("mousemove", { bubbles: true, clientX: box.left + box.width * fx, clientY: box.top + box.height * fy }),
+            );
+            const now = doc.querySelector(".focus")?.textContent;
+            return now && now !== before;
+          });
+          await sleep(300);
+        }
+        if (slide.expand) {
+          const names = { claude: { tr: "Claude oturum dosyaları", en: "Claude session files" } };
+          const row = [...doc.querySelectorAll(".rec-row")].find((r) => r.textContent.includes(names[slide.expand][lang]));
+          row.querySelector(".rec-text").click();
+          await sleep(150);
+          const list = doc.querySelector(".rec-list");
+          list.scrollTop = row.offsetTop - list.offsetTop - 120;
+        }
+        if (slide.clean) {
+          doc.querySelector(".rec-actions .btn.primary").click();
+          await until(() => doc.querySelector(".modal.cleanup"));
+        }
+        if (slide.uninstall) {
+          const button = await until(() => doc.querySelector(".focus .btn.small:not(.with-icon)"));
+          button.click();
+          await until(() => doc.querySelector(".modal.uninstall .uninstall-apps, .modal.uninstall p:not(.muted)"));
+          await sleep(400);
+        }
+      }
+
+      const frames = slide.split ? [addFrame(false), addFrame(true)] : [addFrame(false)];
+      if (slide.split) {
+        win.querySelector(".viewport").insertAdjacentHTML("beforeend", '<div class="divider"></div>');
+      }
+
+      Promise.all(frames.map((f) => new Promise((r) => f.addEventListener("load", r)).then(() => drive(f))))
+        .then(() => (document.title = "ready"))
+        .catch((e) => (document.title = "error: " + e.message));
+    </script>
+  </body>
+</html>

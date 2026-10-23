@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1024" height="1024" viewBox="186 160 680 680">
+  <title>SolidClean (16–32 px)</title>
+  <!-- Ana ikonun küçük boyut sürümü: parıltı ve parçacıklar yok, kompozisyon ortalanmış. -->
+  <defs>
+    <path id="plate" d="M298 198H684a12 12 0 0 1 12 12V366a12 12 0 0 0 12 12H812a12 12 0 0 1 12 12V732a96 96 0 0 1-96 96H298a96 96 0 0 1-96-96V294a96 96 0 0 1 96-96Z"/>
+    <clipPath id="clip"><use href="#plate" xlink:href="#plate"/></clipPath>
+    <linearGradient id="base" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#367873"/><stop offset="1" stop-color="#134D4C"/></linearGradient>
+    <linearGradient id="deepLit" x1="0" y1="0" x2=".5" y2="1"><stop offset="0" stop-color="#4F9899"/><stop offset=".55" stop-color="#0E7370"/><stop offset="1" stop-color="#086C6A"/></linearGradient>
+    <linearGradient id="deep" x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stop-color="#0D736F"/><stop offset="1" stop-color="#05645F"/></linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stop-color="#7BD199"/><stop offset=".45" stop-color="#46BF71"/><stop offset="1" stop-color="#3BBA68"/></linearGradient>
+    <linearGradient id="mint" x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stop-color="#B0F7E8"/><stop offset="1" stop-color="#96F2DC"/></linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2=".6" y2="1"><stop offset="0" stop-color="#F8BC4C"/><stop offset=".5" stop-color="#F2A11D"/><stop offset="1" stop-color="#EA9512"/></linearGradient>
+    <linearGradient id="lift" x1="0" y1="0" x2=".6" y2="1"><stop offset="0" stop-color="#C2F8EC"/><stop offset="1" stop-color="#97EFD9"/></linearGradient>
+  </defs>
+
+  <use href="#plate" xlink:href="#plate" fill="url(#base)"/>
+  <g clip-path="url(#clip)">
+    <rect x="202" y="198" width="238" height="308" rx="10" fill="url(#deepLit)"/>
+    <rect x="452" y="198" width="116" height="308" rx="10" fill="url(#green)"/>
+    <rect x="580" y="198" width="116" height="168" rx="10" fill="url(#mint)"/>
+    <rect x="580" y="378" width="116" height="128" rx="10" fill="url(#mint)"/>
+    <rect x="708" y="378" width="116" height="128" rx="10" fill="url(#green)"/>
+    <rect x="202" y="518" width="156" height="310" rx="10" fill="url(#deep)"/>
+    <rect x="372" y="518" width="196" height="310" rx="10" fill="url(#green)"/>
+    <rect x="580" y="518" width="244" height="118" rx="10" fill="url(#green)"/>
+    <rect x="580" y="648" width="132" height="98" rx="10" fill="url(#amber)"/>
+    <rect x="580" y="758" width="132" height="70" rx="10" fill="url(#deep)"/>
+    <rect x="724" y="648" width="100" height="180" rx="10" fill="url(#deep)"/>
+  </g>
+  <rect x="-58" y="-58" width="116" height="116" rx="14" transform="translate(774 250) rotate(14)" fill="url(#lift)" stroke="#E6FFF8" stroke-opacity=".7" stroke-width="3"/>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <title>SolidClean — Küp</title>
+  <defs>
+    <linearGradient id="left" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22B79D"/><stop offset="1" stop-color="#0F8A76"/></linearGradient>
+    <linearGradient id="right" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0D6F62"/><stop offset="1" stop-color="#084C43"/></linearGradient>
+    <linearGradient id="popTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D2F8E4"/><stop offset="1" stop-color="#8CEBBF"/></linearGradient>
+    <linearGradient id="popLeft" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4BCB98"/><stop offset="1" stop-color="#2FAE80"/></linearGradient>
+    <linearGradient id="popRight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#25966C"/><stop offset="1" stop-color="#1A7553"/></linearGradient>
+    <filter id="drop" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#03241F" flood-opacity=".3"/></filter>
+    <filter id="float" x="-50%" y="-50%" width="200%" height="220%"><feDropShadow dx="-4" dy="14" stdDeviation="6" flood-color="#021A17" flood-opacity=".4"/></filter>
+  </defs>
+  <g transform="translate(128 129) scale(1.12) translate(-128 -129)">
+  <g filter="url(#drop)">
+    <!-- yerinden çıkan bloğun bıraktığı oyuk: arka duvar ve taban -->
+    <polygon points="148,89 115,108 115,146 148,127" fill="#0B4F47"/>
+    <polygon points="148,127 181,146 148,165 115,146" fill="#138073"/>
+    <!-- üst yüz: üç blok -->
+    <polygon points="115,70 148,89 115,108 82,89" fill="#A3EEDD"/>
+    <polygon points="82,89 115,108 82,127 49,108" fill="#6FDCC6"/>
+    <polygon points="115,108 148,127 115,146 82,127" fill="#D2F7EE"/>
+    <!-- yan yüzler -->
+    <polygon points="49,108 115,146 115,222 49,184" fill="url(#left)"/>
+    <polygon points="148,127 115,146 115,222 181,184 181,146 148,165" fill="url(#right)"/>
+    <path d="M115 108 L82 127 M82 89 L115 108" stroke="#0B5C52" stroke-width="3" stroke-linecap="round"/>
+    <path d="M82 127 L82 203 M49 146 L115 184 M148 165 L148 203 M148 165 L115 184" stroke="#000" stroke-opacity=".18" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g filter="url(#float)">
+    <polygon points="174,36 207,55 174,74 141,55" fill="url(#popTop)"/>
+    <polygon points="141,55 174,74 174,112 141,93" fill="url(#popLeft)"/>
+    <polygon points="207,55 174,74 174,112 207,93" fill="url(#popRight)"/>
+  </g>
+  </g>
+</svg>

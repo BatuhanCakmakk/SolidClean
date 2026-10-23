@@ -1,0 +1,194 @@
+# Italiano
+
+[messages]
+close_apps = "Chiudi prima"
+command_failed = "Il comando di Windows non è riuscito"
+nothing_removed = "Non è stato possibile rimuovere nulla; forse è tutto in uso."
+in_use = "{count} elementi erano in uso e sono stati saltati"
+restart_pending = "Un aggiornamento è in attesa di riavvio. Riavvia prima il PC, altrimenti questo passaggio verrà saltato."
+all_drives = "Tutte le unità"
+elevation_declined = "Autorizzazione di amministratore non concessa, passaggio saltato."
+elevation_failed = "Impossibile eseguire il passaggio da amministratore: {error}"
+
+[rules.user-temp]
+name = "File temporanei"
+about = "Residui lasciati dai programmi durante l'installazione o l'esecuzione."
+effect = "Nessun effetto. I file usati negli ultimi 7 giorni e quelli aperti vengono saltati."
+
+[rules.windows-temp]
+name = "File temporanei di Windows"
+about = "La cartella temporanea comune usata da Windows e dai suoi servizi."
+effect = "Nessun effetto. I file usati negli ultimi 7 giorni e quelli aperti vengono saltati."
+
+[rules.update-cache]
+name = "Download di Windows Update"
+about = "File di installazione scaricati per aggiornamenti già installati."
+effect = "Nessun effetto. Viene saltato finché un aggiornamento attende il riavvio; Windows riscarica ciò che serve al prossimo aggiornamento."
+
+[rules.delivery-optimization]
+name = "Cache di Ottimizzazione recapito"
+about = "Copie che Windows conserva per condividere gli aggiornamenti con altri PC della rete."
+effect = "Nessun effetto."
+
+[rules.error-reports]
+name = "Dump di arresto anomalo e segnalazioni errori"
+about = "Dump di memoria creati quando un programma si arresta in modo anomalo e segnalazioni già inviate."
+effect = "Nessun effetto, a meno che tu non voglia inviare una segnalazione di arresto anomalo a uno sviluppatore."
+
+[rules.system-error-reports]
+name = "Segnalazioni errori di sistema"
+about = "Segnalazioni errori di Windows e dei programmi, già inviate o in coda."
+effect = "Nessun effetto."
+
+[rules.minidumps]
+name = "Minidump della schermata blu"
+about = "Piccoli dump salvati a ogni schermata blu. Servono a capirne la causa."
+effect = "Se negli ultimi 30 giorni hai avuto una schermata blu e la stai analizzando, conservali; altrimenti nessun effetto."
+
+[rules.memory-dump]
+name = "Dump completo della memoria"
+about = "L'istantanea completa della memoria dell'ultima schermata blu. Di solito molto grande."
+effect = "Se negli ultimi 30 giorni hai avuto una schermata blu e la stai analizzando, conservalo; altrimenti nessun effetto."
+
+[rules.browser-chrome]
+name = "Cache di Chrome"
+about = "Copie di immagini, script e file dei siti che hai visitato."
+effect = "I siti potrebbero caricarsi un po' più lentamente la prima volta. Password, cronologia e accessi restano."
+
+[rules.browser-edge]
+name = "Cache di Edge"
+about = "Copie di immagini, script e file dei siti che hai visitato."
+effect = "I siti potrebbero caricarsi un po' più lentamente la prima volta. Password, cronologia e accessi restano."
+
+[rules.browser-firefox]
+name = "Cache di Firefox"
+about = "Copie di immagini, script e file dei siti che hai visitato."
+effect = "I siti potrebbero caricarsi un po' più lentamente la prima volta. Password, cronologia e accessi restano."
+
+[rules.browser-opera]
+name = "Cache di Opera"
+about = "Copie di immagini, script e file dei siti che hai visitato."
+effect = "I siti potrebbero caricarsi un po' più lentamente la prima volta. Password, cronologia e accessi restano."
+
+[rules.browser-brave]
+name = "Cache di Brave"
+about = "Copie di immagini, script e file dei siti che hai visitato."
+effect = "I siti potrebbero caricarsi un po' più lentamente la prima volta. Password, cronologia e accessi restano."
+
+[rules.discord-cache]
+name = "Cache di Discord"
+about = "Copie di immagini, GIF e video mostrati nelle chat."
+effect = "I contenuti multimediali dei vecchi messaggi vengono riscaricati. Messaggi e account non vengono toccati."
+
+[rules.shader-cache]
+name = "Cache degli shader grafici"
+about = "Programmi della scheda video compilati per giochi e app."
+effect = "I giochi potrebbero scattare brevemente al primo avvio, poi si sistema da solo."
+
+[rules.vscode-cache]
+name = "Cache di VS Code"
+about = "File di versioni precedenti e pacchetti di estensioni scaricati."
+effect = "Nessun effetto. Impostazioni ed estensioni restano."
+
+[rules.npm-cache]
+name = "Cache di npm"
+about = "Copie dei pacchetti scaricati per progetti Node.js."
+effect = "I pacchetti vengono riscaricati alla prossima installazione."
+
+[rules.pip-cache]
+name = "Cache di pip"
+about = "Copie dei pacchetti scaricati per progetti Python."
+effect = "I pacchetti vengono riscaricati alla prossima installazione."
+
+[rules.yarn-cache]
+name = "Cache di Yarn"
+about = "Copie dei pacchetti scaricati per progetti Node.js."
+effect = "I pacchetti vengono riscaricati alla prossima installazione."
+
+[rules.nuget-cache]
+name = "Cache dei download di NuGet"
+about = "Elenchi di pacchetti e plug-in scaricati per progetti .NET."
+effect = "Nessun effetto."
+
+[rules.gradle-cache]
+name = "Cache di Gradle"
+about = "Librerie e cache di build scaricate per progetti Android e Java."
+effect = "La prossima build riscarica le dipendenze e richiede più tempo. Se Gradle è in esecuzione in background, fermalo con «gradlew --stop» nel tuo progetto."
+
+[rules.recycle-bin]
+name = "Cestino"
+about = "File che hai eliminato e che non sono ancora stati rimossi definitivamente."
+effect = "Questi file non potranno più essere ripristinati. Controlla il contenuto prima di svuotarlo."
+
+[rules.old-downloads]
+name = "Vecchi installer e archivi"
+about = "Installer e archivi compressi nella cartella Download più vecchi di 30 giorni."
+effect = "Nessun effetto se il programma è già installato. Verifica che nessun archivio contenga qualcosa che ti serve."
+
+[rules.hibernation]
+name = "File di ibernazione"
+about = "Dove viene salvata la memoria per l'ibernazione e l'Avvio rapido."
+effect = "Ibernazione e Avvio rapido vengono disattivati; l'avvio può richiedere qualche secondo in più. Per annullare: powercfg /hibernate on"
+
+[rules.windows-old]
+name = "Installazione precedente di Windows"
+about = "Il vecchio sistema rimasto dopo un aggiornamento importante di Windows. Windows lo rimuove dopo 10 giorni."
+effect = "Non potrai più tornare alla versione precedente di Windows."
+manual = "Impostazioni > Sistema > Archiviazione > File temporanei > seleziona «Installazioni precedenti di Windows» e rimuovi."
+
+[rules.ollama-models]
+name = "Modelli Ollama"
+about = "Modelli di IA che girano sul tuo computer. Ognuno può occupare diversi GB."
+effect = "Un modello rimosso viene riscaricato se lo usi in seguito."
+manual = "Esegui «ollama list» in un terminale, poi rimuovi quelli inutilizzati con «ollama rm <modello>»."
+
+[rules.huggingface-cache]
+name = "Modelli Hugging Face"
+about = "Modelli e set di dati scaricati dalle librerie di IA per Python."
+effect = "I modelli rimossi vengono riscaricati se usati in seguito."
+manual = "Esegui «huggingface-cli delete-cache» in un terminale e scegli cosa rimuovere."
+
+[rules.claude-temp]
+name = "File di sessione di Claude"
+about = "Output dei comandi, immagini incollate e file di lavoro delle sessioni di Claude Code. Le sessioni aperte usano questi file."
+effect = "Non viene pulito finché Claude è aperto. Solo le cartelle di sessione inutilizzate da oltre 30 giorni finiscono nel Cestino; se torni a quelle sessioni, mancheranno i vecchi output e le immagini."
+
+[rules.claude-app-cache]
+name = "Cache dell'app Claude"
+about = "Cache dell'interfaccia e file di log dell'app desktop di Claude. Le tue chat non sono salvate qui."
+effect = "Non viene pulito finché Claude è aperto. Solo i file inutilizzati da oltre 30 giorni finiscono nel Cestino; la volta successiva l'app potrebbe caricarsi un po' più lentamente."
+
+[rules.claude-code-history]
+name = "Cronologia delle conversazioni di Claude Code"
+about = "Registrazioni delle sessioni di Claude Code. Sono loro a permetterti di tornare alle vecchie sessioni con «claude --resume»."
+effect = "Le sessioni eliminate non possono essere riprese."
+manual = "Claude Code le rimuove da solo: le sessioni più vecchie di «cleanupPeriodDays» in ~/.claude/settings.json (30 giorni per impostazione predefinita) vengono eliminate all'avvio. Non eliminare questa cartella a mano."
+
+[rules.codex-sessions]
+name = "Registrazioni delle sessioni di Codex"
+about = "Registrazioni delle chat di OpenAI Codex. Sono loro a permetterti di riprendere e continuare le vecchie chat."
+effect = "Le chat eliminate non possono essere riprese."
+manual = "Elimina le chat che non ti servono più da Codex stesso («codex delete <id del thread>» in un terminale). Eliminare i file a mano può rovinare l'elenco delle chat; l'archiviazione non libera spazio."
+
+[rules.gemini-history]
+name = "Chat salvate di Gemini CLI"
+about = "Chat salvate e punti di ripristino che Gemini CLI conserva per ogni progetto."
+effect = "Le chat e i punti di ripristino eliminati non possono essere recuperati."
+manual = "In Gemini CLI, elenca le chat salvate con «/chat list» e rimuovi quelle che non ti servono con «/chat delete <tag>»."
+
+[rules.gemini-temp]
+name = "File temporanei di Gemini"
+about = "File temporanei che Gemini CLI e Antigravity lasciano durante l'esecuzione (ad esempio i dati di connessione all'editor)."
+effect = "Solo gli elementi inutilizzati da oltre 30 giorni finiscono nel Cestino."
+
+[rules.lmstudio-models]
+name = "Modelli LM Studio"
+about = "Modelli di IA che girano sul tuo computer. Ognuno può occupare diversi GB."
+effect = "Un modello rimosso viene riscaricato se lo usi in seguito."
+manual = "Rimuovi i modelli che non usi dalla sezione «My Models» di LM Studio."
+
+[rules.docker-disk]
+name = "Disco virtuale di Docker"
+about = "Il disco virtuale che contiene immagini e container Docker. Non si riduce da solo."
+effect = "Non eliminare mai questo file direttamente; tutti i dati di Docker andrebbero persi."
+manual = "Rimuovi le immagini inutilizzate con «docker system prune -a», poi riduci il disco in Docker Desktop > Troubleshoot > «Clean / Purge data»."

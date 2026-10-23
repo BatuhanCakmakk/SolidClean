@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SolidClean ikonları</title>
+<style>
+  body { margin: 0; background: #F3F2EF; color: #1D1D1F; font: 14px/1.5 "Segoe UI Variable", "Segoe UI", system-ui, sans-serif; }
+  main { max-width: 1320px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 22px; margin: 0; }
+  .lead { color: #6E6A64; margin: 4px 0 20px; max-width: 760px; }
+  section { background: #fff; border: 1px solid #E4E1DC; border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+  section h2 { font-size: 16px; margin: 0; }
+  section p { margin: 2px 0 12px; color: #6E6A64; }
+  .boards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 600px), 1fr)); gap: 12px; }
+  .board { border-radius: 10px; padding: 16px; display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap; }
+  .board.light { background: #FFFFFF; box-shadow: inset 0 0 0 1px #ECEAE6; }
+  .board.dark { background: #202020; }
+  figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  figcaption { font-size: 11px; color: #8A867F; white-space: nowrap; }
+  canvas { image-rendering: pixelated; }
+  .sep { width: 1px; align-self: stretch; background: #8A867F; opacity: .3; }
+  .bars { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 10px; }
+  .bar { height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+  .bar.dark { background: #1C1C1C; }
+  .bar.light { background: #EEEEEE; }
+  .bar > span { width: 40px; height: 40px; border-radius: 6px; display: grid; place-items: center; }
+  .bar.dark > .on { background: rgba(255, 255, 255, .08); }
+  .bar.light > .on { background: rgba(0, 0, 0, .05); }
+  .ph { width: 22px; height: 22px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>SolidClean ikon denemeleri</h1>
+  <p class="lead">Her ikon açık ve koyu zeminde, 128 px'ten 16 px'e. Sağdaki büyüteçler 24 ve 16 px'i
+    gerçek piksel olarak 4 kat büyütür: görev çubuğunda %100 ölçekte gördüğünüz tam olarak budur.</p>
+  <div id="list"></div>
+  <section>
+    <h2>Görev çubuğunda (24 px)</h2>
+    <p>Renkli kareler başka uygulamaları temsil ediyor.</p>
+    <div class="bars" id="bars"></div>
+  </section>
+</main>
+<script>
+  const ICONS = [
+    { file: "ai-taslak.webp", name: "Yapay zekâ taslağı", note: "Karşılaştırma için." },
+    { file: "icon-a-karo.svg", name: "A · Karo", note: "Treemap fikrinin sade hali: 5 blok; yerinden kalkan yeşil blok açılan alanı anlatır." },
+    { file: "icon-b-halka.svg", name: "B · Halka", note: "Disk doluluk halkası; yeşil dilim dışarı çekiliyor." },
+    { file: "icon-c-kup.svg", name: "C · Küp", note: "Adındaki \"solid\": bloklardan oluşan bir küp, köşesindeki blok yerinden çıkıyor." },
+  ];
+  const SIZES = [128, 64, 48, 32, 24, 16];
+  const ZOOM = [24, 16];
+  const NEIGHBORS = ["#3B82F6", "#F2B43C", "#9CA3AF", "#E2553D"];
+
+  const load = (src) =>
+    new Promise((ok, fail) => {
+      const img = new Image();
+      img.onload = () => ok(img);
+      img.onerror = fail;
+      img.src = src;
+    });
+
+  const el = (tag, props = {}, ...children) => {
+    const node = Object.assign(document.createElement(tag), props);
+    node.append(...children);
+    return node;
+  };
+
+  function pixels(img, size) {
+    const canvas = el("canvas", { width: size, height: size });
+    canvas.style.width = canvas.style.height = `${size * 4}px`;
+    const ctx = canvas.getContext("2d");
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(img, 0, 0, size, size);
+    return canvas;
+  }
+
+  function board(img, theme) {
+    const node = el("div", { className: `board ${theme}` });
+    for (const size of SIZES) {
+      node.append(el("figure", {}, el("img", { src: img.src, width: size, height: size, alt: "" }), el("figcaption", { textContent: `${size}` })));
+    }
+    node.append(el("div", { className: "sep" }));
+    for (const size of ZOOM) {
+      node.append(el("figure", {}, pixels(img, size), el("figcaption", { textContent: `${size} px ×4` })));
+    }
+    return node;
+  }
+
+  function bar(img, theme) {
+    const node = el("div", { className: `bar ${theme}` });
+    for (const color of NEIGHBORS) {
+      node.append(el("span", {}, el("i", { className: "ph", style: `background:${color}` })));
+    }
+    node.append(el("span", { className: "on" }, el("img", { src: img.src, width: 24, height: 24, alt: "" })));
+    return node;
+  }
+
+  (async () => {
+    const list = document.getElementById("list");
+    const bars = document.getElementById("bars");
+    for (const icon of ICONS) {
+      const img = await load(icon.file);
+      list.append(
+        el("section", {},
+          el("h2", { textContent: icon.name }),
+          el("p", { textContent: icon.note }),
+          el("div", { className: "boards" }, board(img, "light"), board(img, "dark")),
+        ),
+      );
+      bars.append(bar(img, "dark"), bar(img, "light"));
+    }
+  })();
+</script>
+</body>
+</html>

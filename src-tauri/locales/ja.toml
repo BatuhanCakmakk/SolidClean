@@ -1,0 +1,194 @@
+# 日本語
+
+[messages]
+close_apps = "先に閉じてください"
+command_failed = "Windows のコマンドが失敗しました"
+nothing_removed = "何も削除できませんでした。すべて使用中の可能性があります。"
+in_use = "使用中の {count} 項目をスキップしました"
+restart_pending = "更新プログラムが再起動を待っています。先に PC を再起動してください。再起動しないとこの手順はスキップされます。"
+all_drives = "すべてのドライブ"
+elevation_declined = "管理者の許可が得られなかったため、スキップしました。"
+elevation_failed = "管理者の手順を実行できませんでした: {error}"
+
+[rules.user-temp]
+name = "一時ファイル"
+about = "プログラムのインストールや実行中に残されたファイルです。"
+effect = "影響はありません。過去 7 日以内に使われたファイルと開いているファイルはスキップされます。"
+
+[rules.windows-temp]
+name = "Windows の一時ファイル"
+about = "Windows とそのサービスが使う、システム全体の一時フォルダーです。"
+effect = "影響はありません。過去 7 日以内に使われたファイルと開いているファイルはスキップされます。"
+
+[rules.update-cache]
+name = "Windows Update のダウンロード"
+about = "インストール済みの更新プログラムのセットアップ ファイルです。"
+effect = "影響はありません。更新プログラムが再起動を待っている間はスキップされます。必要なものは次回の更新時に Windows が再びダウンロードします。"
+
+[rules.delivery-optimization]
+name = "配信の最適化のキャッシュ"
+about = "ネットワーク上の他の PC と更新プログラムを共有するために Windows が保持しているコピーです。"
+effect = "影響はありません。"
+
+[rules.error-reports]
+name = "クラッシュ ダンプとエラー レポート"
+about = "プログラムのクラッシュ時に作られたメモリ ダンプと、送信済みのエラー レポートです。"
+effect = "開発者にクラッシュ レポートを送る予定がなければ影響はありません。"
+
+[rules.system-error-reports]
+name = "システムのエラー レポート"
+about = "Windows とプログラムのエラー レポートのうち、送信済みまたは送信待ちのものです。"
+effect = "影響はありません。"
+
+[rules.minidumps]
+name = "ブルースクリーンのミニダンプ"
+about = "ブルースクリーンのたびに保存される小さなダンプです。原因の調査に使います。"
+effect = "過去 30 日以内にブルースクリーンが起きて調査中なら残してください。それ以外は影響はありません。"
+
+[rules.memory-dump]
+name = "完全メモリ ダンプ"
+about = "直近のブルースクリーン時のメモリ全体のスナップショットです。通常とても大きくなります。"
+effect = "過去 30 日以内にブルースクリーンが起きて調査中なら残してください。それ以外は影響はありません。"
+
+[rules.browser-chrome]
+name = "Chrome のキャッシュ"
+about = "閲覧したサイトの画像、スクリプト、ファイルのコピーです。"
+effect = "初回はサイトの表示が少し遅くなることがあります。パスワード、履歴、ログイン状態は残ります。"
+
+[rules.browser-edge]
+name = "Edge のキャッシュ"
+about = "閲覧したサイトの画像、スクリプト、ファイルのコピーです。"
+effect = "初回はサイトの表示が少し遅くなることがあります。パスワード、履歴、ログイン状態は残ります。"
+
+[rules.browser-firefox]
+name = "Firefox のキャッシュ"
+about = "閲覧したサイトの画像、スクリプト、ファイルのコピーです。"
+effect = "初回はサイトの表示が少し遅くなることがあります。パスワード、履歴、ログイン状態は残ります。"
+
+[rules.browser-opera]
+name = "Opera のキャッシュ"
+about = "閲覧したサイトの画像、スクリプト、ファイルのコピーです。"
+effect = "初回はサイトの表示が少し遅くなることがあります。パスワード、履歴、ログイン状態は残ります。"
+
+[rules.browser-brave]
+name = "Brave のキャッシュ"
+about = "閲覧したサイトの画像、スクリプト、ファイルのコピーです。"
+effect = "初回はサイトの表示が少し遅くなることがあります。パスワード、履歴、ログイン状態は残ります。"
+
+[rules.discord-cache]
+name = "Discord のキャッシュ"
+about = "チャットに表示された画像、GIF、動画のコピーです。"
+effect = "古いメッセージのメディアは再ダウンロードされます。メッセージとアカウントには影響しません。"
+
+[rules.shader-cache]
+name = "グラフィックス シェーダー キャッシュ"
+about = "ゲームやアプリ用にコンパイルされたグラフィックス カードのプログラムです。"
+effect = "初回起動時にゲームが一瞬カクつくことがありますが、すぐに解消します。"
+
+[rules.vscode-cache]
+name = "VS Code のキャッシュ"
+about = "古いバージョンの残りファイルと、ダウンロードされた拡張機能パッケージです。"
+effect = "影響はありません。設定と拡張機能は残ります。"
+
+[rules.npm-cache]
+name = "npm のキャッシュ"
+about = "Node.js プロジェクト用にダウンロードされたパッケージのコピーです。"
+effect = "次回のインストール時にパッケージが再ダウンロードされます。"
+
+[rules.pip-cache]
+name = "pip のキャッシュ"
+about = "Python プロジェクト用にダウンロードされたパッケージのコピーです。"
+effect = "次回のインストール時にパッケージが再ダウンロードされます。"
+
+[rules.yarn-cache]
+name = "Yarn のキャッシュ"
+about = "Node.js プロジェクト用にダウンロードされたパッケージのコピーです。"
+effect = "次回のインストール時にパッケージが再ダウンロードされます。"
+
+[rules.nuget-cache]
+name = "NuGet のダウンロード キャッシュ"
+about = ".NET プロジェクト用にダウンロードされたパッケージ一覧とプラグインです。"
+effect = "影響はありません。"
+
+[rules.gradle-cache]
+name = "Gradle のキャッシュ"
+about = "Android と Java のプロジェクト用にダウンロードされたライブラリとビルド キャッシュです。"
+effect = "次回のビルドで依存関係が再ダウンロードされ、時間がかかります。Gradle がバックグラウンドで動いている場合は、プロジェクトで「gradlew --stop」を実行して停止してください。"
+
+[rules.recycle-bin]
+name = "ごみ箱"
+about = "削除したものの、まだ完全には消去されていないファイルです。"
+effect = "これらのファイルは復元できなくなります。空にする前に中身を確認してください。"
+
+[rules.old-downloads]
+name = "古いインストーラーとアーカイブ"
+about = "ダウンロード フォルダーにある、30 日より古いインストーラーと圧縮ファイルです。"
+effect = "プログラムがインストール済みなら影響はありません。必要なものが入ったアーカイブがないか確認してください。"
+
+[rules.hibernation]
+name = "休止状態ファイル"
+about = "休止状態と高速スタートアップのためにメモリの内容を保存する場所です。"
+effect = "休止状態と高速スタートアップが無効になり、起動が数秒遅くなることがあります。元に戻すには: powercfg /hibernate on"
+
+[rules.windows-old]
+name = "以前の Windows のインストール"
+about = "Windows の大型アップデート後に残る古いシステムです。Windows は 10 日後に削除します。"
+effect = "以前の Windows のバージョンに戻せなくなります。"
+manual = "設定 > システム > ストレージ > 一時ファイル > 「以前の Windows のインストール」を選んで削除します。"
+
+[rules.ollama-models]
+name = "Ollama のモデル"
+about = "このコンピューターで動く AI モデルです。1 つで数 GB になることがあります。"
+effect = "削除したモデルは、後で使うときに再ダウンロードされます。"
+manual = "ターミナルで「ollama list」を実行し、使わないものを「ollama rm <モデル>」で削除します。"
+
+[rules.huggingface-cache]
+name = "Hugging Face のモデル"
+about = "Python の AI ライブラリがダウンロードしたモデルとデータセットです。"
+effect = "削除したモデルは、後で使うときに再ダウンロードされます。"
+manual = "ターミナルで「huggingface-cli delete-cache」を実行し、削除するものを選びます。"
+
+[rules.claude-temp]
+name = "Claude のセッション ファイル"
+about = "Claude Code セッションのコマンド出力、貼り付けた画像、作業ファイルです。開いているセッションはこれらのファイルを使います。"
+effect = "Claude が開いている間はクリーンアップしません。30 日以上使われていないセッション フォルダーだけをごみ箱に移動します。それらのセッションに戻ると、古い出力や画像は失われています。"
+
+[rules.claude-app-cache]
+name = "Claude アプリのキャッシュ"
+about = "Claude デスクトップ アプリの画面キャッシュとログ ファイルです。チャットはここには保存されていません。"
+effect = "Claude が開いている間はクリーンアップしません。30 日以上使われていないファイルだけをごみ箱に移動します。次回、アプリの読み込みが少し遅くなることがあります。"
+
+[rules.claude-code-history]
+name = "Claude Code の会話履歴"
+about = "Claude Code セッションの記録です。「claude --resume」で以前のセッションに戻れるのはこの記録のおかげです。"
+effect = "削除したセッションは再開できません。"
+manual = "Claude Code が自動で削除します: ~/.claude/settings.json の「cleanupPeriodDays」(既定は 30 日) より古いセッションは起動時に整理されます。このフォルダーを手動で削除しないでください。"
+
+[rules.codex-sessions]
+name = "Codex のセッション記録"
+about = "OpenAI Codex のチャット記録です。以前のチャットに戻って続けられるのはこの記録のおかげです。"
+effect = "削除したチャットは再開できません。"
+manual = "不要なチャットは Codex 自体から削除してください (ターミナルで「codex delete <スレッド ID>」)。ファイルを手動で削除するとチャット一覧が壊れることがあります。アーカイブしても容量は空きません。"
+
+[rules.gemini-history]
+name = "Gemini CLI の保存済みチャット"
+about = "Gemini CLI がプロジェクトごとに保存しているチャットと復元ポイントです。"
+effect = "削除したチャットと復元ポイントは元に戻せません。"
+manual = "Gemini CLI で「/chat list」を実行して保存済みチャットを表示し、不要なものを「/chat delete <タグ>」で削除します。"
+
+[rules.gemini-temp]
+name = "Gemini の一時ファイル"
+about = "Gemini CLI と Antigravity が実行中に残す一時ファイル (エディターとの接続情報など) です。"
+effect = "30 日以上使われていない項目だけをごみ箱に移動します。"
+
+[rules.lmstudio-models]
+name = "LM Studio のモデル"
+about = "このコンピューターで動く AI モデルです。1 つで数 GB になることがあります。"
+effect = "削除したモデルは、後で使うときに再ダウンロードされます。"
+manual = "LM Studio の「My Models」から、使わないモデルを削除します。"
+
+[rules.docker-disk]
+name = "Docker の仮想ディスク"
+about = "Docker のイメージとコンテナーを収めた仮想ディスクです。自動では小さくなりません。"
+effect = "このファイルを直接削除しないでください。Docker のデータがすべて失われます。"
+manual = "「docker system prune -a」で不要なイメージを削除してから、Docker Desktop > Troubleshoot > 「Clean / Purge data」でディスクを縮小します。"

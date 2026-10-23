@@ -1,0 +1,194 @@
+# Deutsch
+
+[messages]
+close_apps = "Schließen Sie zuerst"
+command_failed = "Der Windows-Befehl ist fehlgeschlagen"
+nothing_removed = "Nichts konnte entfernt werden; womöglich ist alles in Verwendung."
+in_use = "{count} Elemente waren in Verwendung und wurden übersprungen"
+restart_pending = "Ein Update wartet auf einen Neustart. Starten Sie den PC zuerst neu, sonst wird dieser Schritt übersprungen."
+all_drives = "Alle Laufwerke"
+elevation_declined = "Keine Administratorberechtigung erteilt, übersprungen."
+elevation_failed = "Der Administratorschritt konnte nicht ausgeführt werden: {error}"
+
+[rules.user-temp]
+name = "Temporäre Dateien"
+about = "Reste, die Programme beim Installieren oder Ausführen hinterlassen."
+effect = "Keine Auswirkung. Dateien, die in den letzten 7 Tagen verwendet wurden oder gerade geöffnet sind, werden übersprungen."
+
+[rules.windows-temp]
+name = "Temporäre Windows-Dateien"
+about = "Der systemweite temporäre Ordner von Windows und seinen Diensten."
+effect = "Keine Auswirkung. Dateien, die in den letzten 7 Tagen verwendet wurden oder gerade geöffnet sind, werden übersprungen."
+
+[rules.update-cache]
+name = "Windows Update-Downloads"
+about = "Heruntergeladene Installationsdateien bereits installierter Updates."
+effect = "Keine Auswirkung. Wird übersprungen, solange ein Update auf einen Neustart wartet; Windows lädt beim nächsten Update herunter, was es braucht."
+
+[rules.delivery-optimization]
+name = "Cache der Übermittlungsoptimierung"
+about = "Kopien, die Windows aufbewahrt, um Updates mit anderen PCs im Netzwerk zu teilen."
+effect = "Keine Auswirkung."
+
+[rules.error-reports]
+name = "Absturzabbilder und Fehlerberichte"
+about = "Speicherabbilder von Programmabstürzen und bereits gesendete Fehlerberichte."
+effect = "Keine Auswirkung, es sei denn, Sie wollen einem Entwickler einen Absturzbericht schicken."
+
+[rules.system-error-reports]
+name = "System-Fehlerberichte"
+about = "Systemweite Fehlerberichte von Windows und Programmen, bereits gesendet oder in der Warteschlange."
+effect = "Keine Auswirkung."
+
+[rules.minidumps]
+name = "Bluescreen-Minidumps"
+about = "Kleine Abbilder, die bei jedem Bluescreen gespeichert werden. Damit lässt sich die Ursache finden."
+effect = "Hatten Sie in den letzten 30 Tagen einen Bluescreen und untersuchen ihn, behalten Sie sie; sonst keine Auswirkung."
+
+[rules.memory-dump]
+name = "Vollständiges Speicherabbild"
+about = "Das komplette Speicherabbild des letzten Bluescreens. Meist sehr groß."
+effect = "Hatten Sie in den letzten 30 Tagen einen Bluescreen und untersuchen ihn, behalten Sie es; sonst keine Auswirkung."
+
+[rules.browser-chrome]
+name = "Chrome-Cache"
+about = "Kopien von Bildern, Skripten und Dateien besuchter Websites."
+effect = "Websites laden beim ersten Mal etwas langsamer. Passwörter, Verlauf und Anmeldungen bleiben erhalten."
+
+[rules.browser-edge]
+name = "Edge-Cache"
+about = "Kopien von Bildern, Skripten und Dateien besuchter Websites."
+effect = "Websites laden beim ersten Mal etwas langsamer. Passwörter, Verlauf und Anmeldungen bleiben erhalten."
+
+[rules.browser-firefox]
+name = "Firefox-Cache"
+about = "Kopien von Bildern, Skripten und Dateien besuchter Websites."
+effect = "Websites laden beim ersten Mal etwas langsamer. Passwörter, Verlauf und Anmeldungen bleiben erhalten."
+
+[rules.browser-opera]
+name = "Opera-Cache"
+about = "Kopien von Bildern, Skripten und Dateien besuchter Websites."
+effect = "Websites laden beim ersten Mal etwas langsamer. Passwörter, Verlauf und Anmeldungen bleiben erhalten."
+
+[rules.browser-brave]
+name = "Brave-Cache"
+about = "Kopien von Bildern, Skripten und Dateien besuchter Websites."
+effect = "Websites laden beim ersten Mal etwas langsamer. Passwörter, Verlauf und Anmeldungen bleiben erhalten."
+
+[rules.discord-cache]
+name = "Discord-Cache"
+about = "Kopien von Bildern, GIFs und Videos aus Chats."
+effect = "Medien in alten Nachrichten werden neu geladen. Nachrichten und Konto sind nicht betroffen."
+
+[rules.shader-cache]
+name = "Grafik-Shader-Cache"
+about = "Für Spiele und Apps kompilierte Grafikkartenprogramme."
+effect = "Spiele können beim ersten Start kurz ruckeln, danach gibt sich das von selbst."
+
+[rules.vscode-cache]
+name = "VS Code-Cache"
+about = "Reste älterer Versionen und heruntergeladene Erweiterungspakete."
+effect = "Keine Auswirkung. Einstellungen und Erweiterungen bleiben."
+
+[rules.npm-cache]
+name = "npm-Cache"
+about = "Kopien von Paketen, die für Node.js-Projekte heruntergeladen wurden."
+effect = "Pakete werden bei der nächsten Installation neu heruntergeladen."
+
+[rules.pip-cache]
+name = "pip-Cache"
+about = "Kopien von Paketen, die für Python-Projekte heruntergeladen wurden."
+effect = "Pakete werden bei der nächsten Installation neu heruntergeladen."
+
+[rules.yarn-cache]
+name = "Yarn-Cache"
+about = "Kopien von Paketen, die für Node.js-Projekte heruntergeladen wurden."
+effect = "Pakete werden bei der nächsten Installation neu heruntergeladen."
+
+[rules.nuget-cache]
+name = "NuGet-Download-Cache"
+about = "Für .NET-Projekte heruntergeladene Paketlisten und Plug-ins."
+effect = "Keine Auswirkung."
+
+[rules.gradle-cache]
+name = "Gradle-Caches"
+about = "Für Android- und Java-Projekte heruntergeladene Bibliotheken und Build-Caches."
+effect = "Der nächste Build lädt Abhängigkeiten neu und dauert länger. Läuft Gradle im Hintergrund, beenden Sie es im Projekt mit „gradlew --stop“."
+
+[rules.recycle-bin]
+name = "Papierkorb"
+about = "Gelöschte Dateien, die noch nicht endgültig entfernt wurden."
+effect = "Diese Dateien lassen sich nicht mehr wiederherstellen. Sehen Sie vor dem Leeren hinein."
+
+[rules.old-downloads]
+name = "Alte Installer und Archive"
+about = "Installer und komprimierte Archive in „Downloads“, die älter als 30 Tage sind."
+effect = "Keine Auswirkung, wenn das Programm schon installiert ist. Prüfen Sie, dass kein Archiv etwas Benötigtes enthält."
+
+[rules.hibernation]
+name = "Ruhezustandsdatei"
+about = "Hier wird der Arbeitsspeicher für den Ruhezustand und den Schnellstart gesichert."
+effect = "Ruhezustand und Schnellstart werden ausgeschaltet; der Start kann ein paar Sekunden länger dauern. Rückgängig: powercfg /hibernate on"
+
+[rules.windows-old]
+name = "Vorherige Windows-Installation"
+about = "Das alte System, das nach einem großen Windows-Update bleibt. Windows entfernt es nach 10 Tagen."
+effect = "Sie können nicht mehr zur vorherigen Windows-Version zurückkehren."
+manual = "Einstellungen > System > Speicher > Temporäre Dateien > „Vorherige Windows-Installation(en)“ auswählen und entfernen."
+
+[rules.ollama-models]
+name = "Ollama-Modelle"
+about = "KI-Modelle, die auf Ihrem Computer laufen. Jedes kann mehrere GB groß sein."
+effect = "Ein entferntes Modell wird erneut heruntergeladen, wenn Sie es später nutzen."
+manual = "Führen Sie „ollama list“ im Terminal aus und entfernen Sie ungenutzte Modelle mit „ollama rm <Modell>“."
+
+[rules.huggingface-cache]
+name = "Hugging Face-Modelle"
+about = "Von Python-KI-Bibliotheken heruntergeladene Modelle und Datensätze."
+effect = "Entfernte Modelle werden bei späterer Nutzung erneut heruntergeladen."
+manual = "Führen Sie „huggingface-cli delete-cache“ im Terminal aus und wählen Sie, was entfernt werden soll."
+
+[rules.claude-temp]
+name = "Claude-Sitzungsdateien"
+about = "Befehlsausgaben, eingefügte Bilder und Arbeitsdateien aus Claude Code-Sitzungen. Offene Sitzungen verwenden diese Dateien."
+effect = "Wird nicht bereinigt, solange Claude geöffnet ist. Nur Sitzungsordner, die seit über 30 Tagen unbenutzt sind, kommen in den Papierkorb; kehren Sie zu diesen Sitzungen zurück, fehlen deren alte Ausgaben und Bilder."
+
+[rules.claude-app-cache]
+name = "Claude-App-Cache"
+about = "Oberflächen-Cache und Protokolldateien der Claude-Desktop-App. Ihre Chats liegen nicht hier."
+effect = "Wird nicht bereinigt, solange Claude geöffnet ist. Nur Dateien, die seit über 30 Tagen unbenutzt sind, kommen in den Papierkorb; die App lädt beim nächsten Mal womöglich etwas langsamer."
+
+[rules.claude-code-history]
+name = "Claude Code-Gesprächsverlauf"
+about = "Aufzeichnungen der Claude Code-Sitzungen. Damit können Sie mit „claude --resume“ zu alten Sitzungen zurückkehren."
+effect = "Gelöschte Sitzungen lassen sich nicht fortsetzen."
+manual = "Claude Code räumt sie selbst auf: Sitzungen, die älter als „cleanupPeriodDays“ in ~/.claude/settings.json sind (standardmäßig 30 Tage), werden beim Start entfernt. Löschen Sie diesen Ordner nicht von Hand."
+
+[rules.codex-sessions]
+name = "Codex-Sitzungsaufzeichnungen"
+about = "Aufzeichnungen der OpenAI Codex-Chats. Damit können Sie alte Chats wieder aufnehmen und fortsetzen."
+effect = "Gelöschte Chats lassen sich nicht fortsetzen."
+manual = "Löschen Sie nicht mehr benötigte Chats in Codex selbst („codex delete <Thread-ID>“ im Terminal). Wer die Dateien von Hand löscht, kann die Chatliste beschädigen; Archivieren gibt keinen Speicher frei."
+
+[rules.gemini-history]
+name = "Gespeicherte Gemini CLI-Chats"
+about = "Gespeicherte Chats und Wiederherstellungspunkte, die Gemini CLI für jedes Projekt aufbewahrt."
+effect = "Gelöschte Chats und Wiederherstellungspunkte lassen sich nicht zurückholen."
+manual = "Listen Sie in Gemini CLI gespeicherte Chats mit „/chat list“ auf und entfernen Sie nicht benötigte mit „/chat delete <Tag>“."
+
+[rules.gemini-temp]
+name = "Temporäre Gemini-Dateien"
+about = "Temporäre Dateien, die Gemini CLI und Antigravity während der Ausführung hinterlassen (etwa Verbindungsdaten zum Editor)."
+effect = "Nur Elemente, die seit über 30 Tagen unbenutzt sind, kommen in den Papierkorb."
+
+[rules.lmstudio-models]
+name = "LM Studio-Modelle"
+about = "KI-Modelle, die auf Ihrem Computer laufen. Jedes kann mehrere GB groß sein."
+effect = "Ein entferntes Modell wird erneut heruntergeladen, wenn Sie es später nutzen."
+manual = "Entfernen Sie ungenutzte Modelle in LM Studio unter „My Models“."
+
+[rules.docker-disk]
+name = "Virtueller Docker-Datenträger"
+about = "Der virtuelle Datenträger mit Docker-Images und -Containern. Er schrumpft nicht von selbst."
+effect = "Löschen Sie diese Datei nie direkt; alle Docker-Daten gingen verloren."
+manual = "Entfernen Sie ungenutzte Images mit „docker system prune -a“ und verkleinern Sie den Datenträger dann in Docker Desktop > Troubleshoot > „Clean / Purge data“."

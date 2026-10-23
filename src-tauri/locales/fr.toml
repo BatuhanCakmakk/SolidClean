@@ -1,0 +1,194 @@
+# Français
+
+[messages]
+close_apps = "Fermez d'abord"
+command_failed = "La commande Windows a échoué"
+nothing_removed = "Rien n'a pu être supprimé ; tout est peut-être en cours d'utilisation."
+in_use = "{count} éléments étaient en cours d'utilisation et ont été ignorés"
+restart_pending = "Une mise à jour attend un redémarrage. Redémarrez d'abord le PC, sinon cette étape sera ignorée."
+all_drives = "Tous les lecteurs"
+elevation_declined = "L'autorisation d'administrateur n'a pas été accordée, étape ignorée."
+elevation_failed = "L'étape administrateur n'a pas pu s'exécuter : {error}"
+
+[rules.user-temp]
+name = "Fichiers temporaires"
+about = "Restes laissés par les programmes pendant leur installation ou leur exécution."
+effect = "Aucun effet. Les fichiers utilisés ces 7 derniers jours et ceux qui sont ouverts sont ignorés."
+
+[rules.windows-temp]
+name = "Fichiers temporaires de Windows"
+about = "Le dossier temporaire commun utilisé par Windows et ses services."
+effect = "Aucun effet. Les fichiers utilisés ces 7 derniers jours et ceux qui sont ouverts sont ignorés."
+
+[rules.update-cache]
+name = "Téléchargements de Windows Update"
+about = "Fichiers d'installation téléchargés de mises à jour déjà installées."
+effect = "Aucun effet. Ignoré tant qu'une mise à jour attend un redémarrage ; Windows retélécharge ce dont il a besoin à la prochaine mise à jour."
+
+[rules.delivery-optimization]
+name = "Cache de l'Optimisation de la distribution"
+about = "Copies que Windows conserve pour partager les mises à jour avec d'autres PC de votre réseau."
+effect = "Aucun effet."
+
+[rules.error-reports]
+name = "Vidages sur incident et rapports d'erreurs"
+about = "Vidages mémoire créés lors de plantages et rapports d'erreurs déjà envoyés."
+effect = "Aucun effet, sauf si vous comptez envoyer un rapport de plantage à un développeur."
+
+[rules.system-error-reports]
+name = "Rapports d'erreurs système"
+about = "Rapports d'erreurs de Windows et des programmes, déjà envoyés ou en file d'attente."
+effect = "Aucun effet."
+
+[rules.minidumps]
+name = "Minidumps d'écran bleu"
+about = "Petits vidages enregistrés à chaque écran bleu. Ils servent à en trouver la cause."
+effect = "Si vous avez eu un écran bleu ces 30 derniers jours et que vous l'étudiez, gardez-les ; sinon aucun effet."
+
+[rules.memory-dump]
+name = "Vidage mémoire complet"
+about = "La capture complète de la mémoire lors du dernier écran bleu. Souvent très volumineuse."
+effect = "Si vous avez eu un écran bleu ces 30 derniers jours et que vous l'étudiez, gardez-la ; sinon aucun effet."
+
+[rules.browser-chrome]
+name = "Cache de Chrome"
+about = "Copies d'images, de scripts et de fichiers des sites que vous avez visités."
+effect = "Les sites peuvent se charger un peu plus lentement la première fois. Mots de passe, historique et connexions sont conservés."
+
+[rules.browser-edge]
+name = "Cache d'Edge"
+about = "Copies d'images, de scripts et de fichiers des sites que vous avez visités."
+effect = "Les sites peuvent se charger un peu plus lentement la première fois. Mots de passe, historique et connexions sont conservés."
+
+[rules.browser-firefox]
+name = "Cache de Firefox"
+about = "Copies d'images, de scripts et de fichiers des sites que vous avez visités."
+effect = "Les sites peuvent se charger un peu plus lentement la première fois. Mots de passe, historique et connexions sont conservés."
+
+[rules.browser-opera]
+name = "Cache d'Opera"
+about = "Copies d'images, de scripts et de fichiers des sites que vous avez visités."
+effect = "Les sites peuvent se charger un peu plus lentement la première fois. Mots de passe, historique et connexions sont conservés."
+
+[rules.browser-brave]
+name = "Cache de Brave"
+about = "Copies d'images, de scripts et de fichiers des sites que vous avez visités."
+effect = "Les sites peuvent se charger un peu plus lentement la première fois. Mots de passe, historique et connexions sont conservés."
+
+[rules.discord-cache]
+name = "Cache de Discord"
+about = "Copies des images, GIF et vidéos affichés dans les discussions."
+effect = "Les médias des anciens messages sont retéléchargés. Les messages et votre compte ne sont pas touchés."
+
+[rules.shader-cache]
+name = "Cache des shaders graphiques"
+about = "Programmes de carte graphique compilés pour les jeux et les applications."
+effect = "Les jeux peuvent saccader brièvement au premier lancement, puis tout rentre dans l'ordre."
+
+[rules.vscode-cache]
+name = "Cache de VS Code"
+about = "Fichiers d'anciennes versions et paquets d'extensions téléchargés."
+effect = "Aucun effet. Vos paramètres et extensions restent."
+
+[rules.npm-cache]
+name = "Cache npm"
+about = "Copies des paquets téléchargés pour les projets Node.js."
+effect = "Les paquets sont retéléchargés à la prochaine installation."
+
+[rules.pip-cache]
+name = "Cache pip"
+about = "Copies des paquets téléchargés pour les projets Python."
+effect = "Les paquets sont retéléchargés à la prochaine installation."
+
+[rules.yarn-cache]
+name = "Cache Yarn"
+about = "Copies des paquets téléchargés pour les projets Node.js."
+effect = "Les paquets sont retéléchargés à la prochaine installation."
+
+[rules.nuget-cache]
+name = "Cache de téléchargement NuGet"
+about = "Listes de paquets et plug-ins téléchargés pour les projets .NET."
+effect = "Aucun effet."
+
+[rules.gradle-cache]
+name = "Caches Gradle"
+about = "Bibliothèques et caches de compilation téléchargés pour les projets Android et Java."
+effect = "La prochaine compilation retélécharge les dépendances et prend plus de temps. Si Gradle tourne en arrière-plan, arrêtez-le avec « gradlew --stop » dans votre projet."
+
+[rules.recycle-bin]
+name = "Corbeille"
+about = "Fichiers que vous avez supprimés mais qui ne sont pas encore effacés définitivement."
+effect = "Ces fichiers ne pourront plus être restaurés. Regardez son contenu avant de la vider."
+
+[rules.old-downloads]
+name = "Anciens installateurs et archives"
+about = "Installateurs et archives compressées de « Téléchargements » datant de plus de 30 jours."
+effect = "Aucun effet si le programme est déjà installé. Vérifiez qu'aucune archive ne contient quelque chose dont vous avez besoin."
+
+[rules.hibernation]
+name = "Fichier de mise en veille prolongée"
+about = "Emplacement où la mémoire est enregistrée pour la mise en veille prolongée et le Démarrage rapide."
+effect = "La mise en veille prolongée et le Démarrage rapide sont désactivés ; le démarrage peut prendre quelques secondes de plus. Pour annuler : powercfg /hibernate on"
+
+[rules.windows-old]
+name = "Installation précédente de Windows"
+about = "L'ancien système laissé après une mise à jour majeure de Windows. Windows le supprime au bout de 10 jours."
+effect = "Vous ne pourrez plus revenir à la version précédente de Windows."
+manual = "Paramètres > Système > Stockage > Fichiers temporaires > cochez « Installation(s) précédente(s) de Windows » et supprimez."
+
+[rules.ollama-models]
+name = "Modèles Ollama"
+about = "Modèles d'IA qui s'exécutent sur votre ordinateur. Chacun peut peser plusieurs Go."
+effect = "Un modèle supprimé est retéléchargé si vous l'utilisez plus tard."
+manual = "Exécutez « ollama list » dans un terminal, puis supprimez ceux qui ne servent pas avec « ollama rm <modèle> »."
+
+[rules.huggingface-cache]
+name = "Modèles Hugging Face"
+about = "Modèles et jeux de données téléchargés par les bibliothèques d'IA Python."
+effect = "Les modèles supprimés sont retéléchargés s'ils sont réutilisés."
+manual = "Exécutez « huggingface-cli delete-cache » dans un terminal et choisissez ce qu'il faut supprimer."
+
+[rules.claude-temp]
+name = "Fichiers de session Claude"
+about = "Sorties de commandes, images collées et fichiers de travail des sessions Claude Code. Les sessions ouvertes utilisent ces fichiers."
+effect = "Rien n'est nettoyé tant que Claude est ouvert. Seuls les dossiers de session inutilisés depuis plus de 30 jours vont à la Corbeille ; si vous revenez à ces sessions, leurs anciennes sorties et images manqueront."
+
+[rules.claude-app-cache]
+name = "Cache de l'application Claude"
+about = "Cache d'interface et fichiers journaux de l'application de bureau Claude. Vos conversations ne sont pas stockées ici."
+effect = "Rien n'est nettoyé tant que Claude est ouvert. Seuls les fichiers inutilisés depuis plus de 30 jours vont à la Corbeille ; l'application peut se charger un peu plus lentement la fois suivante."
+
+[rules.claude-code-history]
+name = "Historique des conversations Claude Code"
+about = "Enregistrements des sessions Claude Code. Ce sont eux qui permettent de revenir à d'anciennes sessions avec « claude --resume »."
+effect = "Les sessions supprimées ne peuvent plus être reprises."
+manual = "Claude Code les supprime lui-même : les sessions plus anciennes que « cleanupPeriodDays » dans ~/.claude/settings.json (30 jours par défaut) sont nettoyées au démarrage. Ne supprimez pas ce dossier à la main."
+
+[rules.codex-sessions]
+name = "Enregistrements de session Codex"
+about = "Enregistrements des conversations OpenAI Codex. Ce sont eux qui permettent de reprendre d'anciennes conversations."
+effect = "Les conversations supprimées ne peuvent plus être reprises."
+manual = "Supprimez les conversations inutiles depuis Codex (« codex delete <id du fil> » dans un terminal). Supprimer les fichiers à la main peut casser la liste des conversations ; l'archivage ne libère pas d'espace."
+
+[rules.gemini-history]
+name = "Conversations enregistrées de Gemini CLI"
+about = "Conversations et points de restauration que Gemini CLI conserve pour chaque projet."
+effect = "Les conversations et points de restauration supprimés ne peuvent pas être récupérés."
+manual = "Dans Gemini CLI, listez les conversations enregistrées avec « /chat list » et supprimez celles dont vous n'avez plus besoin avec « /chat delete <tag> »."
+
+[rules.gemini-temp]
+name = "Fichiers temporaires de Gemini"
+about = "Fichiers temporaires laissés par Gemini CLI et Antigravity pendant leur exécution (par exemple les infos de connexion à l'éditeur)."
+effect = "Seuls les éléments inutilisés depuis plus de 30 jours vont à la Corbeille."
+
+[rules.lmstudio-models]
+name = "Modèles LM Studio"
+about = "Modèles d'IA qui s'exécutent sur votre ordinateur. Chacun peut peser plusieurs Go."
+effect = "Un modèle supprimé est retéléchargé si vous l'utilisez plus tard."
+manual = "Supprimez les modèles inutilisés dans la section « My Models » de LM Studio."
+
+[rules.docker-disk]
+name = "Disque virtuel Docker"
+about = "Le disque virtuel qui contient les images et conteneurs Docker. Il ne rétrécit pas tout seul."
+effect = "Ne supprimez jamais ce fichier directement ; toutes les données Docker seraient perdues."
+manual = "Supprimez les images inutilisées avec « docker system prune -a », puis réduisez le disque dans Docker Desktop > Troubleshoot > « Clean / Purge data »."

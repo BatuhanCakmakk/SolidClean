@@ -1,0 +1,194 @@
+# 简体中文
+
+[messages]
+close_apps = "请先关闭"
+command_failed = "Windows 命令执行失败"
+nothing_removed = "无法删除任何内容；可能全部正在使用。"
+in_use = "已跳过 {count} 个正在使用的项目"
+restart_pending = "有更新正在等待重启。请先重启电脑，否则将跳过此步骤。"
+all_drives = "所有驱动器"
+elevation_declined = "未获得管理员权限，已跳过。"
+elevation_failed = "无法执行管理员步骤：{error}"
+
+[rules.user-temp]
+name = "临时文件"
+about = "程序在安装或运行时留下的残余文件。"
+effect = "没有影响。最近 7 天内使用过的文件和正在打开的文件会被跳过。"
+
+[rules.windows-temp]
+name = "Windows 临时文件"
+about = "Windows 及其服务使用的系统级临时文件夹。"
+effect = "没有影响。最近 7 天内使用过的文件和正在打开的文件会被跳过。"
+
+[rules.update-cache]
+name = "Windows 更新下载"
+about = "已安装更新的安装文件。"
+effect = "没有影响。有更新等待重启时会跳过；下次更新时 Windows 会重新下载所需内容。"
+
+[rules.delivery-optimization]
+name = "传递优化缓存"
+about = "Windows 为与网络中其他电脑共享更新而保留的副本。"
+effect = "没有影响。"
+
+[rules.error-reports]
+name = "崩溃转储和错误报告"
+about = "程序崩溃时生成的内存转储，以及已发送的错误报告。"
+effect = "没有影响，除非你打算把崩溃报告发给开发者。"
+
+[rules.system-error-reports]
+name = "系统错误报告"
+about = "Windows 和程序的系统级错误报告，已发送或在队列中等待。"
+effect = "没有影响。"
+
+[rules.minidumps]
+name = "蓝屏小型转储"
+about = "每次蓝屏时保存的小型转储，用于查找原因。"
+effect = "如果最近 30 天内出现过蓝屏并且正在排查，请保留；否则没有影响。"
+
+[rules.memory-dump]
+name = "完整内存转储"
+about = "上次蓝屏时的完整内存快照，通常非常大。"
+effect = "如果最近 30 天内出现过蓝屏并且正在排查，请保留；否则没有影响。"
+
+[rules.browser-chrome]
+name = "Chrome 缓存"
+about = "你访问过的网站的图片、脚本和文件副本。"
+effect = "网站首次加载可能稍慢。密码、历史记录和登录状态都会保留。"
+
+[rules.browser-edge]
+name = "Edge 缓存"
+about = "你访问过的网站的图片、脚本和文件副本。"
+effect = "网站首次加载可能稍慢。密码、历史记录和登录状态都会保留。"
+
+[rules.browser-firefox]
+name = "Firefox 缓存"
+about = "你访问过的网站的图片、脚本和文件副本。"
+effect = "网站首次加载可能稍慢。密码、历史记录和登录状态都会保留。"
+
+[rules.browser-opera]
+name = "Opera 缓存"
+about = "你访问过的网站的图片、脚本和文件副本。"
+effect = "网站首次加载可能稍慢。密码、历史记录和登录状态都会保留。"
+
+[rules.browser-brave]
+name = "Brave 缓存"
+about = "你访问过的网站的图片、脚本和文件副本。"
+effect = "网站首次加载可能稍慢。密码、历史记录和登录状态都会保留。"
+
+[rules.discord-cache]
+name = "Discord 缓存"
+about = "聊天中显示的图片、GIF 和视频的副本。"
+effect = "旧消息中的媒体会重新下载。消息和账号不受影响。"
+
+[rules.shader-cache]
+name = "图形着色器缓存"
+about = "为游戏和应用编译的显卡程序。"
+effect = "游戏首次启动时可能短暂卡顿，之后会自行恢复。"
+
+[rules.vscode-cache]
+name = "VS Code 缓存"
+about = "旧版本残留的文件和已下载的扩展包。"
+effect = "没有影响。你的设置和扩展都会保留。"
+
+[rules.npm-cache]
+name = "npm 缓存"
+about = "为 Node.js 项目下载的包的副本。"
+effect = "下次安装时会重新下载这些包。"
+
+[rules.pip-cache]
+name = "pip 缓存"
+about = "为 Python 项目下载的包的副本。"
+effect = "下次安装时会重新下载这些包。"
+
+[rules.yarn-cache]
+name = "Yarn 缓存"
+about = "为 Node.js 项目下载的包的副本。"
+effect = "下次安装时会重新下载这些包。"
+
+[rules.nuget-cache]
+name = "NuGet 下载缓存"
+about = "为 .NET 项目下载的包列表和插件。"
+effect = "没有影响。"
+
+[rules.gradle-cache]
+name = "Gradle 缓存"
+about = "为 Android 和 Java 项目下载的库和构建缓存。"
+effect = "下次构建会重新下载依赖项，耗时更长。如果 Gradle 正在后台运行，请在项目中运行“gradlew --stop”停止它。"
+
+[rules.recycle-bin]
+name = "回收站"
+about = "你已删除但尚未永久清除的文件。"
+effect = "这些文件将无法再还原。清空前请先查看其中的内容。"
+
+[rules.old-downloads]
+name = "旧的安装程序和压缩包"
+about = "“下载”文件夹中超过 30 天的安装程序和压缩包。"
+effect = "如果程序已经安装，则没有影响。请确认压缩包中没有你需要的内容。"
+
+[rules.hibernation]
+name = "休眠文件"
+about = "为休眠和快速启动保存内存内容的位置。"
+effect = "休眠和快速启动将被关闭；开机可能会慢几秒。如需恢复：powercfg /hibernate on"
+
+[rules.windows-old]
+name = "以前的 Windows 安装"
+about = "Windows 大版本更新后留下的旧系统。Windows 会在 10 天后将其删除。"
+effect = "你将无法再回退到以前的 Windows 版本。"
+manual = "设置 > 系统 > 存储 > 临时文件 > 勾选“以前的 Windows 安装”并删除。"
+
+[rules.ollama-models]
+name = "Ollama 模型"
+about = "在你电脑上运行的 AI 模型。每个可能有好几 GB。"
+effect = "删除的模型在以后使用时会重新下载。"
+manual = "在终端中运行“ollama list”，然后用“ollama rm <模型>”删除不用的模型。"
+
+[rules.huggingface-cache]
+name = "Hugging Face 模型"
+about = "Python AI 库下载的模型和数据集。"
+effect = "删除的模型在以后使用时会重新下载。"
+manual = "在终端中运行“huggingface-cli delete-cache”，然后选择要删除的内容。"
+
+[rules.claude-temp]
+name = "Claude 会话文件"
+about = "Claude Code 会话的命令输出、粘贴的图片和工作文件。打开的会话会使用这些文件。"
+effect = "Claude 打开时不会清理。只有超过 30 天未使用的会话文件夹才会移到回收站；如果回到这些会话，旧的输出和图片将会缺失。"
+
+[rules.claude-app-cache]
+name = "Claude 应用缓存"
+about = "Claude 桌面应用的界面缓存和日志文件。你的聊天记录不存放在这里。"
+effect = "Claude 打开时不会清理。只有超过 30 天未使用的文件才会移到回收站；下次打开时应用加载可能稍慢。"
+
+[rules.claude-code-history]
+name = "Claude Code 对话历史"
+about = "Claude Code 会话的记录。正是这些记录让你可以用“claude --resume”回到以前的会话。"
+effect = "已删除的会话无法恢复。"
+manual = "Claude Code 会自行清理：早于 ~/.claude/settings.json 中“cleanupPeriodDays”(默认 30 天) 的会话会在启动时清除。请不要手动删除此文件夹。"
+
+[rules.codex-sessions]
+name = "Codex 会话记录"
+about = "OpenAI Codex 的聊天记录。正是这些记录让你可以回到以前的聊天并继续。"
+effect = "已删除的聊天无法恢复。"
+manual = "请在 Codex 中删除不再需要的聊天 (在终端中运行“codex delete <线程 ID>”)。手动删除文件可能会损坏聊天列表；归档不会释放空间。"
+
+[rules.gemini-history]
+name = "Gemini CLI 已保存的聊天"
+about = "Gemini CLI 为每个项目保存的聊天和还原点。"
+effect = "已删除的聊天和还原点无法找回。"
+manual = "在 Gemini CLI 中用“/chat list”列出已保存的聊天，再用“/chat delete <标签>”删除不需要的。"
+
+[rules.gemini-temp]
+name = "Gemini 临时文件"
+about = "Gemini CLI 和 Antigravity 运行时留下的临时文件 (例如与编辑器的连接信息)。"
+effect = "只有超过 30 天未使用的项目才会移到回收站。"
+
+[rules.lmstudio-models]
+name = "LM Studio 模型"
+about = "在你电脑上运行的 AI 模型。每个可能有好几 GB。"
+effect = "删除的模型在以后使用时会重新下载。"
+manual = "在 LM Studio 的“My Models”中删除不用的模型。"
+
+[rules.docker-disk]
+name = "Docker 虚拟磁盘"
+about = "存放 Docker 镜像和容器的虚拟磁盘。它不会自动缩小。"
+effect = "切勿直接删除此文件，否则所有 Docker 数据都会丢失。"
+manual = "先用“docker system prune -a”删除不用的镜像，然后在 Docker Desktop > Troubleshoot > “Clean / Purge data”中缩小磁盘。"

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/
+
+# Yerel araç ayarları
+.claude/
+
+# scripts/store-screenshots.ps1 ile yeniden üretilir (~34 MB)
+store/screenshots/out/

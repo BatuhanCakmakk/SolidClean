@@ -1,0 +1,489 @@
+# Temizlik kuralları. Her kural neyin, neden ve nasıl temizlenebileceğini tanımlar.
+# Uygulama bu dosyayı derleme sırasında içine gömer.
+#
+# kind:
+#   contents     klasörün İÇİNDEKİLER silinir, klasörün kendisi kalır
+#   files        klasördeki, uzantısı ve yaşı tutan dosyalar silinir (alt klasörlere inilmez)
+#   file         tek dosya
+#   dir          yalnızca ölçülür; temizlik elle yapılır (manual zorunlu)
+#   recycle_bin  Geri Dönüşüm Kutusu
+# safety:        safe (güvenle silinebilir) | review (önce gözden geçirilmeli)
+# paths:         %ORTAM_DEĞİŞKENİ% ve klasör adında * desteklenir
+# command:       varsa silme yerine çalıştırılır. command_check verilmişse ve o komut
+#                bilgisayarda yoksa normal temizliğe dönülür; verilmemişse yalnızca komut çalışır.
+# older_than_days: contents/files için yaş sınırı; klasörlerde içindeki en yeni dosyaya bakılır
+# exclude:       contents kurallarında dokunulmayan alt öğe adları
+# close_apps:    açıkken temizlenemeyen programlar (.exe olmadan); "Gradle daemon" özel addır
+# wait_for_restart: bir güncelleme yeniden başlatma bekliyorsa temizlenmez
+# review_if_recent_days: hedefte bu kadar günden yeni değişiklik varsa öneri "review" olur
+# services:      temizlikten önce durdurulup sonra başlatılan Windows hizmetleri
+#
+# Silme hedefleri ayrıca safety.rs'deki koruma listesinden geçer; bu dosyada bir hata
+# olsa bile Windows, Program Files veya kişisel klasörler silinemez.
+
+# ---------------------------------------------------------------- güvenli
+
+[[rule]]
+id = "user-temp"
+safety = "safe"
+category = "cache"
+kind = "contents"
+paths = ['%TEMP%']
+# Windows'un Disk Temizleme'si de 7 günden yeni geçici dosyalara dokunmaz
+# (VolumeCaches\Temporary Files: LastAccess = 7).
+older_than_days = 7
+# Yapay zekâ araçlarının klasörleri; kendi "gözden geçirin" kuralları var (claude-temp, gemini-temp).
+exclude = ['claude', 'gemini']
+regenerates = true
+name = { tr = "Geçici dosyalar", en = "Temporary files" }
+about = { tr = "Programların kurulum ve çalışma sırasında bıraktığı geçici dosyalar.", en = "Leftovers that programs create while installing or running." }
+effect = { tr = "Bir etkisi yok. Son 7 günde kullanılan ve şu an açık olan dosyalar atlanır.", en = "No effect. Files used in the last 7 days and files in use are skipped." }
+
+[[rule]]
+id = "windows-temp"
+safety = "safe"
+category = "cache"
+kind = "contents"
+paths = ['%SystemRoot%\Temp']
+older_than_days = 7
+admin = true
+regenerates = true
+name = { tr = "Windows geçici dosyaları", en = "Windows temporary files" }
+about = { tr = "Windows'un ve hizmetlerin kullandığı sistem geneli geçici klasör.", en = "The system-wide temporary folder used by Windows and its services." }
+effect = { tr = "Bir etkisi yok. Son 7 günde kullanılan ve şu an açık olan dosyalar atlanır.", en = "No effect. Files used in the last 7 days and files in use are skipped." }
+
+[[rule]]
+id = "update-cache"
+safety = "safe"
+category = "cache"
+kind = "contents"
+paths = ['%SystemRoot%\SoftwareDistribution\Download']
+admin = true
+services = ["wuauserv", "bits"]
+# Kurulumu yeniden başlatmayı bekleyen bir güncellemenin dosyaları silinmesin.
+wait_for_restart = true
+regenerates = true
+name = { tr = "Windows Update indirmeleri", en = "Windows Update downloads" }
+about = { tr = "Kurulmuş güncellemelerin indirilen kurulum dosyaları.", en = "Downloaded setup files of updates that are already installed." }
+effect = { tr = "Bir etkisi yok. Yeniden başlatma bekleyen bir güncelleme varsa temizlenmez; Windows bir sonraki güncellemede gerekenleri yeniden indirir.", en = "No effect. Skipped while an update is waiting for a restart; Windows downloads what it needs again at the next update." }
+
+[[rule]]
+id = "delivery-optimization"
+safety = "safe"
+category = "cache"
+kind = "contents"
+paths = ['%SystemRoot%\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Cache']
+admin = true
+command = "Delete-DeliveryOptimizationCache -Force"
+command_check = "Delete-DeliveryOptimizationCache"
+regenerates = true
+name = { tr = "Teslim İyileştirme önbelleği", en = "Delivery Optimization cache" }
+about = { tr = "Windows'un güncellemeleri ağdaki diğer bilgisayarlarla paylaşmak için tuttuğu kopyalar.", en = "Copies Windows keeps to share updates with other PCs on your network." }
+effect = { tr = "Bir etkisi yok.", en = "No effect." }
+
+[[rule]]
+id = "error-reports"
+safety = "safe"
+category = "cache"
+kind = "contents"
+paths = [
+  '%LOCALAPPDATA%\CrashDumps',
+  '%LOCALAPPDATA%\Microsoft\Windows\WER\ReportArchive',
+  '%LOCALAPPDATA%\Microsoft\Windows\WER\ReportQueue',
+]
+name = { tr = "Çökme dökümleri ve hata raporları", en = "Crash dumps and error reports" }
+about = { tr = "Programlar çöktüğünde oluşturulan bellek dökümleri ve gönderilmiş hata raporları.", en = "Memory dumps created when programs crash, and error reports already sent." }
+effect = { tr = "Geliştiriciye çökme raporu göndermeyecekseniz bir etkisi yok.", en = "No effect unless you plan to send a crash report to a developer." }
+
+[[rule]]
+id = "system-error-reports"
+safety = "safe"
+category = "cache"
+kind = "contents"
+paths = [
+  '%ProgramData%\Microsoft\Windows\WER\ReportArchive',
+  '%ProgramData%\Microsoft\Windows\WER\ReportQueue',
+]
+admin = true
+name = { tr = "Sistem hata raporları", en = "System error reports" }
+about = { tr = "Windows'un ve programların sistem genelinde tuttuğu, gönderilmiş ya da sırada bekleyen hata raporları.", en = "System-wide error reports from Windows and programs, already sent or waiting in the queue." }
+effect = { tr = "Bir etkisi yok.", en = "No effect." }
+
+# Mavi ekran dökümleri sorunun nedenini bulmak için gerekir: son 30 gündeyse "gözden geçir"e düşer.
+
+[[rule]]
+id = "minidumps"
+safety = "safe"
+category = "cache"
+kind = "contents"
+paths = ['%SystemRoot%\Minidump']
+admin = true
+review_if_recent_days = 30
+name = { tr = "Mavi ekran küçük dökümleri", en = "Blue screen minidumps" }
+about = { tr = "Her mavi ekranda kaydedilen küçük dökümler. Sorunun nedenini bulmak için kullanılır.", en = "Small dumps saved at every blue screen. Used to find out what caused it." }
+effect = { tr = "Son 30 günde mavi ekran olduysa ve nedenini araştırıyorsanız silmeyin; değilse bir etkisi yok.", en = "If you had a blue screen in the last 30 days and are looking into it, keep them; otherwise no effect." }
+
+[[rule]]
+id = "memory-dump"
+safety = "safe"
+category = "cache"
+kind = "file"
+paths = ['%SystemRoot%\MEMORY.DMP']
+admin = true
+review_if_recent_days = 30
+name = { tr = "Tam bellek dökümü", en = "Full memory dump" }
+about = { tr = "Son mavi ekranda belleğin tamamının kaydedildiği dosya. Genellikle çok büyüktür.", en = "The full memory snapshot from the last blue screen. Usually very large." }
+effect = { tr = "Son 30 günde mavi ekran olduysa ve nedenini araştırıyorsanız silmeyin; değilse bir etkisi yok.", en = "If you had a blue screen in the last 30 days and are looking into it, keep it; otherwise no effect." }
+
+[[rule]]
+id = "browser-chrome"
+safety = "safe"
+category = "cache"
+kind = "contents"
+paths = [
+  '%LOCALAPPDATA%\Google\Chrome\User Data\*\Cache',
+  '%LOCALAPPDATA%\Google\Chrome\User Data\*\Code Cache',
+  '%LOCALAPPDATA%\Google\Chrome\User Data\*\GPUCache',
+]
+close_apps = ["chrome"]
+regenerates = true
+name = { tr = "Chrome önbelleği", en = "Chrome cache" }
+about = { tr = "Ziyaret ettiğiniz sitelerden indirilen resim, betik ve dosya kopyaları.", en = "Copies of images, scripts and files from websites you visited." }
+effect = { tr = "Siteler ilk açılışta biraz yavaş yüklenebilir. Şifreler, geçmiş ve oturumlar silinmez.", en = "Sites may load a bit slower the first time. Passwords, history and logins are kept." }
+
+[[rule]]
+id = "browser-edge"
+safety = "safe"
+category = "cache"
+kind = "contents"
+paths = [
+  '%LOCALAPPDATA%\Microsoft\Edge\User Data\*\Cache',
+  '%LOCALAPPDATA%\Microsoft\Edge\User Data\*\Code Cache',
+  '%LOCALAPPDATA%\Microsoft\Edge\User Data\*\GPUCache',
+]
+close_apps = ["msedge"]
+regenerates = true
+name = { tr = "Edge önbelleği", en = "Edge cache" }
+about = { tr = "Ziyaret ettiğiniz sitelerden indirilen resim, betik ve dosya kopyaları.", en = "Copies of images, scripts and files from websites you visited." }
+effect = { tr = "Siteler ilk açılışta biraz yavaş yüklenebilir. Şifreler, geçmiş ve oturumlar silinmez.", en = "Sites may load a bit slower the first time. Passwords, history and logins are kept." }
+
+[[rule]]
+id = "browser-firefox"
+safety = "safe"
+category = "cache"
+kind = "contents"
+paths = ['%LOCALAPPDATA%\Mozilla\Firefox\Profiles\*\cache2']
+close_apps = ["firefox"]
+regenerates = true
+name = { tr = "Firefox önbelleği", en = "Firefox cache" }
+about = { tr = "Ziyaret ettiğiniz sitelerden indirilen resim, betik ve dosya kopyaları.", en = "Copies of images, scripts and files from websites you visited." }
+effect = { tr = "Siteler ilk açılışta biraz yavaş yüklenebilir. Şifreler, geçmiş ve oturumlar silinmez.", en = "Sites may load a bit slower the first time. Passwords, history and logins are kept." }
+
+[[rule]]
+id = "browser-opera"
+safety = "safe"
+category = "cache"
+kind = "contents"
+paths = [
+  '%LOCALAPPDATA%\Opera Software\*\Cache',
+  '%APPDATA%\Opera Software\*\Code Cache',
+  '%APPDATA%\Opera Software\*\GPUCache',
+]
+close_apps = ["opera"]
+regenerates = true
+name = { tr = "Opera önbelleği", en = "Opera cache" }
+about = { tr = "Ziyaret ettiğiniz sitelerden indirilen resim, betik ve dosya kopyaları.", en = "Copies of images, scripts and files from websites you visited." }
+effect = { tr = "Siteler ilk açılışta biraz yavaş yüklenebilir. Şifreler, geçmiş ve oturumlar silinmez.", en = "Sites may load a bit slower the first time. Passwords, history and logins are kept." }
+
+[[rule]]
+id = "browser-brave"
+safety = "safe"
+category = "cache"
+kind = "contents"
+paths = [
+  '%LOCALAPPDATA%\BraveSoftware\Brave-Browser\User Data\*\Cache',
+  '%LOCALAPPDATA%\BraveSoftware\Brave-Browser\User Data\*\Code Cache',
+  '%LOCALAPPDATA%\BraveSoftware\Brave-Browser\User Data\*\GPUCache',
+]
+close_apps = ["brave"]
+regenerates = true
+name = { tr = "Brave önbelleği", en = "Brave cache" }
+about = { tr = "Ziyaret ettiğiniz sitelerden indirilen resim, betik ve dosya kopyaları.", en = "Copies of images, scripts and files from websites you visited." }
+effect = { tr = "Siteler ilk açılışta biraz yavaş yüklenebilir. Şifreler, geçmiş ve oturumlar silinmez.", en = "Sites may load a bit slower the first time. Passwords, history and logins are kept." }
+
+[[rule]]
+id = "discord-cache"
+safety = "safe"
+category = "cache"
+kind = "contents"
+paths = ['%APPDATA%\discord\Cache', '%APPDATA%\discord\Code Cache', '%APPDATA%\discord\GPUCache']
+close_apps = ["Discord"]
+regenerates = true
+name = { tr = "Discord önbelleği", en = "Discord cache" }
+about = { tr = "Sohbetlerde görüntülenen resim, GIF ve videoların kopyaları.", en = "Copies of images, GIFs and videos shown in chats." }
+effect = { tr = "Eski mesajlardaki medya yeniden indirilir. Mesajlar ve hesabınız etkilenmez.", en = "Media in old messages is downloaded again. Messages and your account are not affected." }
+
+[[rule]]
+id = "shader-cache"
+safety = "safe"
+category = "cache"
+kind = "contents"
+paths = [
+  '%LOCALAPPDATA%\D3DSCache',
+  '%LOCALAPPDATA%\NVIDIA\DXCache',
+  '%LOCALAPPDATA%\NVIDIA\GLCache',
+  '%USERPROFILE%\AppData\LocalLow\NVIDIA\PerDriverVersion\DXCache',
+  '%LOCALAPPDATA%\AMD\DxCache',
+  '%LOCALAPPDATA%\AMD\DxcCache',
+]
+regenerates = true
+name = { tr = "Ekran kartı gölgelendirici önbelleği", en = "Graphics shader cache" }
+about = { tr = "Oyunlar ve uygulamalar için derlenmiş ekran kartı programları.", en = "Graphics card programs compiled for games and apps." }
+effect = { tr = "Oyunların ilk açılışı birkaç dakika boyunca biraz takılabilir, sonra kendiliğinden düzelir.", en = "Games may stutter briefly the first time they start, then it fixes itself." }
+
+[[rule]]
+id = "vscode-cache"
+safety = "safe"
+category = "dev"
+kind = "contents"
+paths = ['%APPDATA%\Code\Cache', '%APPDATA%\Code\CachedData', '%APPDATA%\Code\CachedExtensionVSIXs', '%APPDATA%\Code\Code Cache']
+close_apps = ["Code"]
+regenerates = true
+name = { tr = "VS Code önbelleği", en = "VS Code cache" }
+about = { tr = "Eski sürümlerden kalan dosyalar ve indirilmiş eklenti paketleri.", en = "Files left from older versions and downloaded extension packages." }
+effect = { tr = "Bir etkisi yok. Ayarlarınız ve eklentileriniz kalır.", en = "No effect. Your settings and extensions stay." }
+
+[[rule]]
+id = "npm-cache"
+safety = "safe"
+category = "dev"
+kind = "contents"
+paths = ['%LOCALAPPDATA%\npm-cache']
+command = "npm cache clean --force"
+command_check = "npm"
+regenerates = true
+name = { tr = "npm önbelleği", en = "npm cache" }
+about = { tr = "Node.js projeleri için indirilmiş paketlerin kopyaları.", en = "Copies of packages downloaded for Node.js projects." }
+effect = { tr = "Paketler bir sonraki kurulumda yeniden indirilir.", en = "Packages are downloaded again on the next install." }
+
+[[rule]]
+id = "pip-cache"
+safety = "safe"
+category = "dev"
+kind = "contents"
+paths = ['%LOCALAPPDATA%\pip\Cache']
+regenerates = true
+name = { tr = "pip önbelleği", en = "pip cache" }
+about = { tr = "Python projeleri için indirilmiş paketlerin kopyaları.", en = "Copies of packages downloaded for Python projects." }
+effect = { tr = "Paketler bir sonraki kurulumda yeniden indirilir.", en = "Packages are downloaded again on the next install." }
+
+[[rule]]
+id = "yarn-cache"
+safety = "safe"
+category = "dev"
+kind = "contents"
+paths = ['%LOCALAPPDATA%\Yarn\Cache']
+regenerates = true
+name = { tr = "Yarn önbelleği", en = "Yarn cache" }
+about = { tr = "Node.js projeleri için indirilmiş paketlerin kopyaları.", en = "Copies of packages downloaded for Node.js projects." }
+effect = { tr = "Paketler bir sonraki kurulumda yeniden indirilir.", en = "Packages are downloaded again on the next install." }
+
+[[rule]]
+id = "nuget-cache"
+safety = "safe"
+category = "dev"
+kind = "contents"
+paths = ['%LOCALAPPDATA%\NuGet\v3-cache', '%LOCALAPPDATA%\NuGet\plugins-cache']
+regenerates = true
+name = { tr = "NuGet indirme önbelleği", en = "NuGet download cache" }
+about = { tr = ".NET projeleri için indirilmiş paket listeleri ve eklentiler.", en = "Package listings and plugins downloaded for .NET projects." }
+effect = { tr = "Bir etkisi yok.", en = "No effect." }
+
+[[rule]]
+id = "gradle-cache"
+safety = "safe"
+category = "dev"
+kind = "contents"
+paths = ['%USERPROFILE%\.gradle\caches']
+# Gradle açıkken dosyaları kilitler; o sırada silmek yarım, bozuk önbellek bırakabilir.
+close_apps = ["studio64", "idea64", "Gradle daemon"]
+regenerates = true
+name = { tr = "Gradle önbelleği", en = "Gradle caches" }
+about = { tr = "Android ve Java projeleri için indirilmiş kütüphaneler ve derleme önbelleği.", en = "Libraries and build caches downloaded for Android and Java projects." }
+effect = { tr = "Bir sonraki derleme bağımlılıkları yeniden indirir ve daha uzun sürer. Arka planda Gradle çalışıyorsa projede \"gradlew --stop\" ile durdurun.", en = "The next build downloads dependencies again and takes longer. If Gradle is running in the background, stop it with \"gradlew --stop\" in your project." }
+
+# ---------------------------------------------------------------- gözden geçir
+
+[[rule]]
+id = "recycle-bin"
+safety = "review"
+category = "cache"
+kind = "recycle_bin"
+name = { tr = "Geri Dönüşüm Kutusu", en = "Recycle Bin" }
+about = { tr = "Sildiğiniz ama henüz kalıcı olarak kaldırılmamış dosyalar.", en = "Files you deleted that have not been removed permanently yet." }
+effect = { tr = "Bu dosyalar geri getirilemez. Boşaltmadan önce içine göz atın.", en = "These files can no longer be restored. Look inside before emptying it." }
+
+[[rule]]
+id = "old-downloads"
+safety = "review"
+category = "archive"
+kind = "files"
+paths = ['%USERPROFILE%\Downloads']
+extensions = ["exe", "msi", "msix", "iso", "zip", "7z", "rar"]
+older_than_days = 30
+name = { tr = "Eski kurulum dosyaları ve arşivler", en = "Old installers and archives" }
+about = { tr = "İndirilenler klasöründe 30 günden eski kurulum dosyaları ve sıkıştırılmış arşivler.", en = "Installers and compressed archives in Downloads that are older than 30 days." }
+effect = { tr = "Program zaten kuruluysa bir etkisi yok. Arşivlerin içinde ihtiyacınız olan bir şey olmadığından emin olun.", en = "No effect if the program is already installed. Make sure no archive holds something you need." }
+
+[[rule]]
+id = "hibernation"
+safety = "review"
+category = "system"
+kind = "file"
+paths = ['%SystemDrive%\hiberfil.sys']
+admin = true
+command = "powercfg /hibernate off"
+name = { tr = "Hazırda bekletme dosyası", en = "Hibernation file" }
+about = { tr = "Hazırda bekletme ve Hızlı Başlangıç için belleğin diske yazıldığı dosya.", en = "Where memory is saved for hibernation and Fast Startup." }
+effect = { tr = "Hazırda bekletme ve Hızlı Başlangıç kapanır, açılış birkaç saniye uzayabilir. Geri açmak için: powercfg /hibernate on", en = "Hibernation and Fast Startup are turned off; startup may take a few seconds longer. To undo: powercfg /hibernate on" }
+
+[[rule]]
+id = "windows-old"
+safety = "review"
+category = "system"
+kind = "dir"
+paths = ['%SystemDrive%\Windows.old']
+admin = true
+name = { tr = "Önceki Windows kurulumu", en = "Previous Windows installation" }
+about = { tr = "Büyük bir Windows güncellemesinden sonra kalan eski sistem. 10 gün sonra kendiliğinden silinir.", en = "The old system left after a major Windows update. Windows removes it after 10 days." }
+effect = { tr = "Önceki Windows sürümüne geri dönemezsiniz.", en = "You can no longer go back to the previous Windows version." }
+manual = { tr = "Ayarlar > Sistem > Depolama > Geçici dosyalar > \"Önceki Windows yüklemeleri\" seçeneğini işaretleyip kaldırın.", en = "Settings > System > Storage > Temporary files > select \"Previous Windows installation(s)\" and remove." }
+
+# ---------------------------------------------------------------- yapay zekâ araçları
+# Bu araçların dosyaları açık oturumlar, sohbet geçmişi ve modeller içerir. Kurallar:
+# - her zaman "review" (testlerle zorunlu); genel kurallar (ör. user-temp) bu klasörlere dokunmaz
+# - silinen her şey Geri Dönüşüm Kutusu'na gider (kalıcı silme seçilse bile)
+# - silinebilenler en az 30 gündür kullanılmamış olmalı; araç açıkken temizlenmez
+# - sohbet geçmişi ve modeller hiç silinmez: aracın kendi silme komutu gösterilir (manual)
+
+[[rule]]
+id = "ollama-models"
+safety = "review"
+category = "ai"
+kind = "dir"
+paths = ['%USERPROFILE%\.ollama\models']
+name = { tr = "Ollama modelleri", en = "Ollama models" }
+about = { tr = "Bilgisayarınızda çalışan yapay zekâ modelleri. Her biri birkaç GB olabilir.", en = "AI models that run on your computer. Each can be several GB." }
+effect = { tr = "Silinen model tekrar kullanılmak istenirse yeniden indirilir.", en = "A removed model is downloaded again if you use it later." }
+manual = { tr = "Terminalde \"ollama list\" ile modelleri görün, kullanmadıklarınızı \"ollama rm <model>\" ile kaldırın.", en = "Run \"ollama list\" in a terminal, then remove unused ones with \"ollama rm <model>\"." }
+
+[[rule]]
+id = "huggingface-cache"
+safety = "review"
+category = "ai"
+kind = "dir"
+paths = ['%USERPROFILE%\.cache\huggingface']
+name = { tr = "Hugging Face modelleri", en = "Hugging Face models" }
+about = { tr = "Python yapay zekâ kütüphanelerinin indirdiği modeller ve veri setleri.", en = "Models and datasets downloaded by Python AI libraries." }
+effect = { tr = "Silinen modeller tekrar kullanılırsa yeniden indirilir.", en = "Removed models are downloaded again if used later." }
+manual = { tr = "Terminalde \"huggingface-cli delete-cache\" ile hangi modellerin silineceğini seçin.", en = "Run \"huggingface-cli delete-cache\" in a terminal and choose what to remove." }
+
+[[rule]]
+id = "claude-temp"
+safety = "review"
+category = "ai"
+kind = "contents"
+paths = ['%TEMP%\claude']
+# Claude Code'un kendi oturum saklama süresiyle (cleanupPeriodDays) aynı.
+older_than_days = 30
+close_apps = ["claude"]
+name = { tr = "Claude oturum dosyaları", en = "Claude session files" }
+about = { tr = "Claude Code oturumlarının komut çıktıları, yapıştırılan görseller ve çalışma dosyaları. Açık oturumlar bu dosyaları kullanır.", en = "Command output, pasted images and working files from Claude Code sessions. Open sessions use these files." }
+effect = { tr = "Claude açıkken temizlenmez. Yalnızca 30 günden uzun süredir kullanılmayan oturum klasörleri Geri Dönüşüm Kutusu'na taşınır; o oturumlara dönerseniz eski çıktılar ve görseller bulunamaz.", en = "Not cleaned while Claude is open. Only session folders unused for more than 30 days go to the Recycle Bin; if you go back to those sessions, their old output and images will be missing." }
+
+[[rule]]
+id = "claude-app-cache"
+safety = "review"
+category = "ai"
+kind = "contents"
+paths = [
+  '%APPDATA%\Claude\Cache', '%APPDATA%\Claude\Code Cache', '%APPDATA%\Claude\GPUCache', '%APPDATA%\Claude\logs',
+  '%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\Cache',
+  '%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\Code Cache',
+  '%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\GPUCache',
+  '%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\logs',
+]
+older_than_days = 30
+close_apps = ["claude"]
+regenerates = true
+name = { tr = "Claude uygulama önbelleği", en = "Claude app cache" }
+about = { tr = "Claude masaüstü uygulamasının arayüz önbelleği ve günlük (log) dosyaları. Sohbetleriniz burada değil.", en = "The Claude desktop app's interface cache and log files. Your chats are not stored here." }
+effect = { tr = "Claude açıkken temizlenmez. Yalnızca 30 günden uzun süredir kullanılmayan dosyalar Geri Dönüşüm Kutusu'na taşınır; uygulama bir sonraki açılışta biraz yavaş yüklenebilir.", en = "Not cleaned while Claude is open. Only files unused for more than 30 days go to the Recycle Bin; the app may load a little slower next time." }
+
+[[rule]]
+id = "claude-code-history"
+safety = "review"
+category = "ai"
+kind = "dir"
+paths = ['%USERPROFILE%\.claude\projects']
+name = { tr = "Claude Code konuşma geçmişi", en = "Claude Code conversation history" }
+about = { tr = "Claude Code oturumlarının kayıtları. Eski oturumlara \"claude --resume\" ile dönmek bunlarla mümkün.", en = "Records of Claude Code sessions. They are what lets you return to old sessions with \"claude --resume\"." }
+effect = { tr = "Silinen oturumlara geri dönülemez.", en = "Deleted sessions can't be resumed." }
+manual = { tr = "Claude Code bunları kendisi siler: ~/.claude/settings.json içindeki \"cleanupPeriodDays\" süresinden (varsayılan 30 gün) eski oturumlar açılışta temizlenir. Bu klasörü elle silmeyin.", en = "Claude Code removes these itself: sessions older than \"cleanupPeriodDays\" in ~/.claude/settings.json (30 days by default) are cleaned up at startup. Don't delete this folder by hand." }
+
+[[rule]]
+id = "codex-sessions"
+safety = "review"
+category = "ai"
+kind = "dir"
+paths = ['%USERPROFILE%\.codex\sessions', '%USERPROFILE%\.codex\archived_sessions']
+name = { tr = "Codex oturum kayıtları", en = "Codex session records" }
+about = { tr = "OpenAI Codex sohbetlerinin kayıtları. Eski sohbetlere dönmek ve devam etmek bunlarla mümkün.", en = "Records of OpenAI Codex chats. They are what lets you return to and continue old chats." }
+effect = { tr = "Silinen sohbetlere geri dönülemez.", en = "Deleted chats can't be resumed." }
+manual = { tr = "Kullanmadığınız sohbetleri Codex'in kendisinden silin (terminalde \"codex delete <sohbet kimliği>\"). Dosyaları elle silmek sohbet listesini bozabilir; arşivlemek yer açmaz.", en = "Delete chats you no longer need from Codex itself (\"codex delete <thread id>\" in a terminal). Deleting the files by hand can break the chat list; archiving does not free space." }
+
+[[rule]]
+id = "gemini-history"
+safety = "review"
+category = "ai"
+kind = "dir"
+paths = ['%USERPROFILE%\.gemini\tmp']
+name = { tr = "Gemini CLI kayıtlı sohbetleri", en = "Gemini CLI saved chats" }
+about = { tr = "Gemini CLI'ın proje başına tuttuğu kayıtlı sohbetler ve geri alma noktaları.", en = "Saved chats and restore points that Gemini CLI keeps for each project." }
+effect = { tr = "Silinen sohbetler ve geri alma noktaları geri getirilemez.", en = "Deleted chats and restore points can't be brought back." }
+manual = { tr = "Gemini CLI'da \"/chat list\" ile kayıtlı sohbetleri görün, gerekmeyenleri \"/chat delete <etiket>\" ile silin.", en = "In Gemini CLI, list saved chats with \"/chat list\" and remove the ones you don't need with \"/chat delete <tag>\"." }
+
+[[rule]]
+id = "gemini-temp"
+safety = "review"
+category = "ai"
+kind = "contents"
+paths = ['%TEMP%\gemini']
+older_than_days = 30
+name = { tr = "Gemini geçici dosyaları", en = "Gemini temporary files" }
+about = { tr = "Gemini CLI ve Antigravity'nin çalışırken bıraktığı geçici dosyalar (ör. düzenleyici bağlantı bilgileri).", en = "Temporary files Gemini CLI and Antigravity leave while running (such as editor connection info)." }
+effect = { tr = "Yalnızca 30 günden uzun süredir kullanılmayan öğeler Geri Dönüşüm Kutusu'na taşınır.", en = "Only items unused for more than 30 days go to the Recycle Bin." }
+
+[[rule]]
+id = "lmstudio-models"
+safety = "review"
+category = "ai"
+kind = "dir"
+paths = ['%USERPROFILE%\.lmstudio\models']
+name = { tr = "LM Studio modelleri", en = "LM Studio models" }
+about = { tr = "Bilgisayarınızda çalışan yapay zekâ modelleri. Her biri birkaç GB olabilir.", en = "AI models that run on your computer. Each can be several GB." }
+effect = { tr = "Silinen model tekrar kullanılmak istenirse yeniden indirilir.", en = "A removed model is downloaded again if you use it later." }
+manual = { tr = "LM Studio'da Modeller (My Models) bölümünden kullanmadığınız modelleri silin.", en = "Remove models you don't use from the My Models section in LM Studio." }
+
+# ---------------------------------------------------------------- geliştirici araçları
+
+[[rule]]
+id = "docker-disk"
+safety = "review"
+category = "dev"
+kind = "file"
+paths = ['%LOCALAPPDATA%\Docker\wsl\disk\docker_data.vhdx', '%LOCALAPPDATA%\Docker\wsl\data\ext4.vhdx']
+name = { tr = "Docker sanal diski", en = "Docker virtual disk" }
+about = { tr = "Docker imajlarını ve konteynerlerini tutan sanal disk. İçi boşalsa bile kendiliğinden küçülmez.", en = "The virtual disk holding Docker images and containers. It does not shrink by itself." }
+effect = { tr = "Bu dosyayı asla doğrudan silmeyin, tüm Docker verileri kaybolur.", en = "Never delete this file directly; all Docker data would be lost." }
+manual = { tr = "\"docker system prune -a\" ile kullanılmayan imajları silin, sonra Docker Desktop > Troubleshoot > \"Clean / Purge data\" ile diski küçültün.", en = "Remove unused images with \"docker system prune -a\", then shrink the disk in Docker Desktop > Troubleshoot > \"Clean / Purge data\"." }
