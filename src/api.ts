@@ -145,7 +145,7 @@ const tauriApi = {
   /** Windows Ayarlar > Yüklü uygulamalar; kaldırma orada yapılır. */
   openInstalledApps: () => invoke<void>("open_installed_apps"),
   /** Buy Me a Coffee sayfasını tarayıcıda açar. */
-  openSupportPage: () => invoke<void>("open_support_page"),
+  openLink: (link: "support" | "source") => invoke<void>("open_link", { link }),
   /** Her öneri temizlenmeye başlarken kimliğiyle çağrılır. */
   onCleanupProgress: (cb: (id: string) => void): Promise<UnlistenFn> =>
     listen<string>("cleanup-progress", (e) => cb(e.payload)),

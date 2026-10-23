@@ -231,6 +231,11 @@ select {
   margin: 0;
 }
 
+/* Kaynak kodu solda, Tamam sağda. */
+.about-source {
+  margin-right: auto;
+}
+
 .topbar-actions {
   display: flex;
   align-items: center;

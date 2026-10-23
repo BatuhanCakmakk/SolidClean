@@ -10,6 +10,7 @@ export const ja: Strings = {
   version: (v) => `バージョン ${v}`,
   aboutFree: "無料のオープンソース ソフトウェアです (GPL-3.0-or-later)。広告もアカウントもありません。",
   aboutPrivacy: "スキャンとクリーンアップはすべてこの PC 上で行われ、データが外部に送信されることはありません。",
+  sourceCode: "ソース コード",
   idleHint: "スキャン後、ここにクリーンアップの提案が表示されます。",
   home: "ホーム フォルダー",
   localDisk: "ローカル ディスク",

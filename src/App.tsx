@@ -296,7 +296,7 @@ export default function App() {
               {phase === "done" ? t.rescan : t.scan}
             </button>
           )}
-          <MoreMenu onAbout={() => setAbout(true)} onSupport={() => api.openSupportPage().catch((e) => setError(String(e)))} />
+          <MoreMenu onAbout={() => setAbout(true)} onSupport={() => api.openLink("support").catch((e) => setError(String(e)))} />
         </div>
       </header>
 

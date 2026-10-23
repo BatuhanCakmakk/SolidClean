@@ -10,6 +10,7 @@ export const de: Strings = {
   version: (v) => `Version ${v}`,
   aboutFree: "Kostenlos und Open Source (GPL-3.0-or-later). Keine Werbung, kein Konto.",
   aboutPrivacy: "Scan und Bereinigung laufen vollständig auf Ihrem PC; es werden keine Daten gesendet.",
+  sourceCode: "Quellcode",
   idleHint: "Nach einem Scan erscheinen hier Bereinigungsvorschläge.",
   home: "Mein Benutzerordner",
   localDisk: "Lokaler Datenträger",

@@ -243,13 +243,22 @@ fn open_installed_apps() -> Result<(), String> {
     apps::open_installed_apps()
 }
 
-/// Projeyi destekleme sayfası. Bağış hiçbir özelliği açmaz (Store politikası 10.8.2).
-const SUPPORT_URL: &str = "https://buymeacoffee.com/batuhancakmak";
+/// Uygulamanın açabildiği dış sayfalar. Adresler sabittir; arayüz yalnızca hangisini seçer.
+#[derive(serde::Deserialize)]
+#[serde(rename_all = "lowercase")]
+enum Link {
+    /// Projeyi destekleme sayfası. Bağış hiçbir özelliği açmaz (Store politikası 10.8.2).
+    Support,
+    Source,
+}
 
-/// Destek sayfasını varsayılan tarayıcıda açar. Adres sabittir, arayüzden gelmez.
+/// Sayfayı varsayılan tarayıcıda açar.
 #[tauri::command]
-fn open_support_page() -> Result<(), String> {
-    apps::shell_open(SUPPORT_URL)
+fn open_link(link: Link) -> Result<(), String> {
+    apps::shell_open(match link {
+        Link::Support => "https://buymeacoffee.com/batuhancakmak",
+        Link::Source => "https://github.com/BatuhanCakmakk/SolidClean",
+    })
 }
 
 #[tauri::command]
@@ -287,7 +296,7 @@ pub fn run() {
             get_history,
             apps_for_folder,
             open_installed_apps,
-            open_support_page
+            open_link
         ])
         .run(tauri::generate_context!())
         .expect("SolidClean başlatılamadı");

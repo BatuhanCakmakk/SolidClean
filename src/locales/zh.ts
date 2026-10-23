@@ -10,6 +10,7 @@ export const zh: Strings = {
   version: (v) => `版本 ${v}`,
   aboutFree: "免费开源 (GPL-3.0-or-later)。无广告，无需账户。",
   aboutPrivacy: "扫描和清理完全在你的电脑上进行，不会向外发送任何数据。",
+  sourceCode: "源代码",
   idleHint: "扫描完成后，这里会显示清理建议。",
   home: "我的用户文件夹",
   localDisk: "本地磁盘",

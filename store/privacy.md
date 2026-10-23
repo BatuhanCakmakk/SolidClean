@@ -7,7 +7,8 @@ _Last updated / Son güncelleme: 23 October 2026_
 SolidClean does not collect, store or send any personal data.
 
 - **No data leaves your PC.** The app has no telemetry, analytics, advertising or accounts,
-  and it makes no network requests.
+  and it makes no network requests. The "Buy me a coffee" and "Source code" links only open
+  your default web browser.
 - **What it reads:** file and folder names, sizes and dates on the drives you choose to
   scan, and the names of running programs (to avoid cleaning files of apps that are open).
   This information stays in memory while the app runs and is not saved.
@@ -20,14 +21,15 @@ SolidClean does not collect, store or send any personal data.
 SolidClean is open source (GPL-3.0-or-later), so anyone can verify this behavior in its
 source code.
 
-Contact: _add your support e-mail or issue tracker URL here_
+Contact: https://github.com/BatuhanCakmakk/SolidClean/issues
 
 ## Türkçe
 
 SolidClean hiçbir kişisel veri toplamaz, saklamaz veya göndermez.
 
 - **Hiçbir veri bilgisayarınızdan çıkmaz.** Uygulamada telemetri, analiz, reklam veya
-  hesap yoktur ve uygulama hiçbir ağ isteği yapmaz.
+  hesap yoktur ve uygulama hiçbir ağ isteği yapmaz. "Bana kahve ısmarla" ve "Kaynak kodu"
+  bağlantıları yalnızca varsayılan tarayıcınızı açar.
 - **Okudukları:** taramayı seçtiğiniz sürücülerdeki dosya ve klasör adları, boyutları ve
   tarihleri; açık olan uygulamaların dosyalarını temizlememek için çalışan programların
   adları. Bu bilgiler yalnızca uygulama açıkken bellekte durur, kaydedilmez.
@@ -39,4 +41,4 @@ SolidClean hiçbir kişisel veri toplamaz, saklamaz veya göndermez.
 
 SolidClean açık kaynaklıdır (GPL-3.0-or-later); bu davranışı herkes kaynak kodunda doğrulayabilir.
 
-İletişim: _destek e-postanızı veya sorun takip adresinizi buraya ekleyin_
+İletişim: https://github.com/BatuhanCakmakk/SolidClean/issues

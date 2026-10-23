@@ -10,6 +10,7 @@ export const es: Strings = {
   version: (v) => `Versión ${v}`,
   aboutFree: "Gratis y de código abierto (GPL-3.0-or-later). Sin anuncios ni cuenta.",
   aboutPrivacy: "El análisis y la limpieza se hacen por completo en tu equipo; no se envía ningún dato.",
+  sourceCode: "Código fuente",
   idleHint: "Después de un análisis, aquí aparecerán sugerencias de limpieza.",
   home: "Mi carpeta personal",
   localDisk: "Disco local",

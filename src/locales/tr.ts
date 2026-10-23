@@ -10,6 +10,7 @@ export const tr = {
   version: (v: string) => `Sürüm ${v}`,
   aboutFree: "Ücretsiz ve açık kaynaklı (GPL-3.0-or-later). Reklam yok, hesap yok.",
   aboutPrivacy: "Tarama ve temizlik tamamen bilgisayarınızda yapılır; hiçbir veri dışarı gönderilmez.",
+  sourceCode: "Kaynak kodu",
   idleHint: "Taramadan sonra burada temizlik önerileri görünür.",
   home: "Ev klasörüm",
   localDisk: "Yerel Disk",

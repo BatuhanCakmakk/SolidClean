@@ -382,8 +382,9 @@ export const mockApi: Api = {
     return [];
   },
   openInstalledApps: async () => {},
-  openSupportPage: async () => {
-    window.open("https://buymeacoffee.com/batuhancakmak", "_blank", "noopener");
+  openLink: async (link) => {
+    const url = link === "support" ? "https://buymeacoffee.com/batuhancakmak" : "https://github.com/BatuhanCakmakk/SolidClean";
+    window.open(url, "_blank", "noopener");
   },
   onCleanupProgress: async (cb) => {
     onCleanupProgress = cb;

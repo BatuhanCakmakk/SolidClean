@@ -10,6 +10,7 @@ export const en: Strings = {
   version: (v) => `Version ${v}`,
   aboutFree: "Free and open source (GPL-3.0-or-later). No ads, no account.",
   aboutPrivacy: "Scanning and cleanup happen entirely on your PC; no data is ever sent out.",
+  sourceCode: "Source code",
   idleHint: "Cleanup recommendations appear here after a scan.",
   home: "My home folder",
   localDisk: "Local Disk",
