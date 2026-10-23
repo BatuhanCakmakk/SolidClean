@@ -1,0 +1,114 @@
+<!doctype html>
+<!--
+  Microsoft Store logoları (Store listing > Store logos). `npm run dev` açıkken:
+    http://localhost:1420/store/art/?format=poster   9:16, 720×1080 (2× = 1440×2160)
+    http://localhost:1420/store/art/?format=box      1:1, 1080×1080 (2× = 2160×2160)
+  PNG'ler: scripts/store-screenshots.ps1 -Art
+  Metin yok; aynı görsel Türkçe ve İngilizce listelemede kullanılır.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>SolidClean Store art</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        overflow: hidden;
+        background: #073f38;
+      }
+
+      .art {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        background:
+          radial-gradient(900px 700px at 0% 0%, rgba(255, 255, 255, 0.2), transparent 62%),
+          radial-gradient(900px 800px at 100% 100%, rgba(63, 208, 178, 0.55), transparent 65%),
+          linear-gradient(150deg, #06463e 0%, #0d7c6b 45%, #17a58d 75%, #3fd0b2 100%);
+      }
+
+      .poster {
+        width: 720px;
+        height: 1080px;
+      }
+
+      .box {
+        width: 1080px;
+        height: 1080px;
+      }
+
+      /* Logodaki karolara gönderme: arka planda soluk bir treemap. */
+      .tiles i {
+        position: absolute;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.055);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .mark {
+        position: relative;
+        filter: drop-shadow(0 18px 40px rgba(2, 30, 26, 0.45));
+      }
+
+      .name {
+        position: relative;
+        margin-top: 44px;
+        font: 700 84px/1 "Segoe UI Variable Display", "Segoe UI", sans-serif;
+        letter-spacing: -0.02em;
+        text-shadow: 0 2px 24px rgba(4, 35, 31, 0.25);
+      }
+
+      .box .name {
+        font-size: 96px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="art" id="art">
+      <div class="tiles" id="tiles"></div>
+      <img class="mark" id="mark" src="/src/assets/logo.svg" alt="" />
+      <div class="name">SolidClean</div>
+    </div>
+
+    <script>
+      const format = new URLSearchParams(location.search).get("format") === "box" ? "box" : "poster";
+      document.getElementById("art").classList.add(format);
+
+      const LAYOUT = {
+        poster: {
+          mark: 300,
+          tiles: [
+            [-70, -60, 330, 280],
+            [480, -40, 300, 220],
+            [560, 760, 240, 380],
+            [-90, 820, 380, 320],
+          ],
+        },
+        box: {
+          mark: 340,
+          tiles: [
+            [-80, -70, 380, 300],
+            [820, -60, 340, 260],
+            [860, 760, 300, 400],
+            [-60, 800, 420, 340],
+          ],
+        },
+      }[format];
+
+      const mark = document.getElementById("mark");
+      mark.width = mark.height = LAYOUT.mark;
+      document.getElementById("tiles").innerHTML = LAYOUT.tiles
+        .map(([x, y, w, h]) => `<i style="left:${x}px;top:${y}px;width:${w}px;height:${h}px"></i>`)
+        .join("");
+    </script>
+  </body>
+</html>

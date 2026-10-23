@@ -8,3 +8,4 @@ src-tauri/gen/
 
 # scripts/store-screenshots.ps1 ile yeniden üretilir (~34 MB)
 store/screenshots/out/
+store/art/out/

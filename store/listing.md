@@ -114,6 +114,15 @@ kişisel dosya adı içermez. Yeniden üretmek için:
 Metinler ve sahneler `store/screenshots/index.html` içinde; tarayıcıda
 `http://localhost:1420/store/screenshots/?slide=hero&lang=tr` ile önizlenir.
 
+## Store logoları
+
+`./scripts/store-screenshots.ps1 -Art` ile üretilir (`store/art/out/`), iki dilde aynıdır:
+
+- 9:16 Poster art: `poster-art.png` (1440×2160)
+- 1:1 Box art: `box-art.png` (2160×2160)
+
+Alttaki 300×300 / 150×150 / 71×71 alanlarını boş bırakın; Store paketteki ikonları kullanır.
+
 ## Kısıtlı yetenekler (Submission options → Restricted capabilities)
 
 Pakette üç kısıtlı yetenek var. Partner Center her biri için gerekçe ister; aşağıdaki
