@@ -2,10 +2,14 @@
 
 Windows için disk alanı analiz ve temizlik aracı. Ücretsiz, GPL-3.0-or-later.
 
+<a href="https://apps.microsoft.com/detail/9PJ5DDBNRMMF?mode=direct">
+  <img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200" alt="Microsoft Store'dan edinin" />
+</a>
+
 Diller: English, Türkçe, Deutsch, Français, Español, Português (Brasil), Italiano, Русский,
 日本語, 简体中文.
 
-> Durum: Faz 4 — Microsoft Store için MSIX paketi. Seçilen öneriler onaydan sonra
+> Durum: [Microsoft Store'da yayında](https://apps.microsoft.com/detail/9PJ5DDBNRMMF) (0.1.1). Seçilen öneriler onaydan sonra
 > varsayılan olarak Geri Dönüşüm Kutusu'na taşınır; kalıcı silme ayrıca seçilmelidir.
 > Yönetici gerektiren temizlikler (ör. Windows Update önbelleği, Windows.old) yalnızca
 > ölçülür; nasıl yapılacağı Windows Ayarlar'ından gösterilir. Uygulama yönetici izni istemez.
