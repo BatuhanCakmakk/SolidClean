@@ -40,7 +40,8 @@ SolidClean ücretsizdir, açık kaynaklıdır (GPL-3.0) ve hiçbir veriyi bilgis
 - Hızlı tarama: yüz binlerce dosya saniyeler içinde
 - Klasörleri boyutuna göre gösteren etkileşimli harita
 - "Güvenle silinebilir" ve "Önce gözden geçirin" diye ayrılmış öneriler
-- Tarayıcı, Windows Update, geliştirici araçları ve uygulama önbellekleri
+- Tarayıcı, geliştirici araçları ve uygulama önbellekleri; Windows Update gibi sistem
+  dosyaları için Ayarlar'da izlenecek yol
 - Geri Dönüşüm Kutusu'na taşıyarak geri alınabilir temizlik
 - Açık olan uygulamaların dosyalarına dokunmaz
 - Ollama, Hugging Face, Docker gibi büyük yapay zekâ ve geliştirici dosyalarını bulur
@@ -78,7 +79,8 @@ SolidClean is free, open source (GPL-3.0) and never sends any data off your PC.
 - Fast scanning: hundreds of thousands of files in seconds
 - Interactive map of folders sized by space used
 - Recommendations split into "Safe to remove" and "Review first"
-- Browser, Windows Update, developer tool and app caches
+- Browser, developer tool and app caches, plus the steps in Settings for system files
+  such as Windows Update
 - Undoable cleanup through the Recycle Bin
 - Skips files of apps that are still open
 - Finds large AI and developer files such as Ollama, Hugging Face and Docker
@@ -125,37 +127,37 @@ Alttaki 300×300 / 150×150 / 71×71 alanlarını boş bırakın; Store pakettek
 
 ## Kısıtlı yetenekler (Submission options → Restricted capabilities)
 
-Pakette üç kısıtlı yetenek var. Partner Center her biri için gerekçe ister; aşağıdaki
-İngilizce metinleri kullanın.
-
-**runFullTrust**
+Pakette yalnızca `runFullTrust` var. Partner Center gerekçe isterse:
 
 > SolidClean is a Win32 desktop app (Rust + WebView2). It scans the file system with Win32
 > APIs and needs full trust to read folder sizes outside its package.
 
-**unvirtualizedResources** (`FileSystemWriteVirtualization=disabled`)
+İlk gönderimde (0.1.0) istenen `allowElevation` ve `unvirtualizedResources` 10.6.3 gereği
+reddedildi ve 0.1.1'de kaldırıldı:
 
-> SolidClean is a disk cleanup tool. Most of the caches it cleans live in other apps'
-> folders under %LOCALAPPDATA% and %APPDATA% (browser caches, crash dumps, npm/pip caches,
-> %LOCALAPPDATA%\Temp). With AppData write virtualization enabled, deleting those files would
-> only hide them inside the package's private overlay while the real files stay on disk, so
-> the cleanup would report freed space that was never freed. Disabling write virtualization
-> makes deletions act on the real files. SolidClean only deletes paths the user has explicitly
-> confirmed, moves them to the Recycle Bin by default, and never deletes Windows, Program Files
-> or the user's personal folders.
+- Yönetici gerektiren kurallar (Windows\Temp, Windows Update, Teslim İyileştirme, sistem
+  hata raporları, bellek dökümleri, Windows.old) artık yalnızca ölçülür;
+  temizlik için Windows Ayarlar'ındaki yol gösterilir. `rules.toml`'da `admin = true` olan
+  her kuralın `manual` metni olması testle zorunlu.
+- AppData yazma sanallaştırması açık. Windows 10 1903'ten beri paketli uygulamaların var
+  olan AppData dosyalarını silmesi gerçek konumda olur; yalnızca paketin yeni oluşturduğu
+  dosyalar özel konuma yönlendirilir. En düşük sürüm 19041 olduğu için bu yeterli.
 
-**allowElevation**
+Gerekçe alanlarından bu ikisini silin; yoksa paketle uyuşmaz.
 
-> A few optional cleanup steps need administrator rights: C:\Windows\Temp, Windows Update
-> download cache, Delivery Optimization cache, system error reports, memory dumps and
-> turning off hibernation. For these, SolidClean starts a short-lived helper of its own executable through
-> the standard UAC prompt, only after the user selects these items and confirms. The main app
-> always runs without elevation; if the user declines UAC, those steps are skipped.
+## Notes for certification
+
+> No account or sign-in is needed. Click "Scan" to analyze the system drive; the Recommendations
+> tab lists what can be cleaned, with an explanation of each item. Selected items are moved to
+> the Recycle Bin by default after a confirmation dialog. SolidClean never asks for administrator
+> rights: items that need them are shown with instructions for Windows Settings and cannot be
+> selected. The "Support" link in the ⋯ menu opens an optional donation page in the browser and
+> unlocks nothing. Source code: https://github.com/BatuhanCakmakk/SolidClean
 
 ## Notlar
 
 - Paket imzasız yüklenebilir; Store yayın sırasında Microsoft sertifikasıyla imzalar.
-- Sürüm `tauri.conf.json` içindeki `version` + `.0` olur (ör. 0.1.0 → 0.1.0.0). Her yeni
+- Sürüm `tauri.conf.json` içindeki `version` + `.0` olur (ör. 0.1.1 → 0.1.1.0). Her yeni
   gönderimde sürümü artırın.
 - Paketteki kimlik değerleri (`src-tauri/msix/identity.json`) Partner Center'daki
   "Product identity" sayfasıyla birebir aynı olmalı, yoksa yükleme reddedilir.

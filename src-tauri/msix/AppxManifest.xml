@@ -4,8 +4,7 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  xmlns:desktop6="http://schemas.microsoft.com/appx/manifest/desktop/windows10/6"
-  IgnorableNamespaces="uap rescap desktop6">
+  IgnorableNamespaces="uap rescap">
 
   <Identity Name="{{Name}}" Publisher="{{Publisher}}" Version="{{Version}}" ProcessorArchitecture="x64" />
 
@@ -13,9 +12,8 @@
     <DisplayName>SolidClean</DisplayName>
     <PublisherDisplayName>{{PublisherDisplayName}}</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
-    <!-- Önbellek temizliği diğer uygulamaların AppData klasörlerinde yapılır. Sanallaştırma açıkken
-         silme yalnızca paketin özel katmanında görünür, gerçek dosyalar diskte kalırdı. -->
-    <desktop6:FileSystemWriteVirtualization>disabled</desktop6:FileSystemWriteVirtualization>
+    <!-- AppData sanallaştırması açık kalır: Windows 10 1903'ten beri yalnızca paketin YENİ oluşturduğu
+         dosyalar yönlendirilir; diğer uygulamaların var olan önbellek dosyaları gerçek konumda silinir. -->
   </Properties>
 
   <Dependencies>
@@ -40,9 +38,7 @@
 
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
-    <!-- Windows\Temp, hazırda bekletme gibi adımlar için UAC ile yönetici yardımcı süreci (elevate.rs). -->
-    <rescap:Capability Name="allowElevation" />
-    <!-- FileSystemWriteVirtualization=disabled için gerekli. -->
-    <rescap:Capability Name="unvirtualizedResources" />
+    <!-- allowElevation ve unvirtualizedResources Store'da reddedildi (10.6.3); yönetici gerektiren
+         temizlikler elle yapılır (rules.toml'da admin => manual). -->
   </Capabilities>
 </Package>

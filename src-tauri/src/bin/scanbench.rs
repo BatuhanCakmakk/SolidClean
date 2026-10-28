@@ -31,7 +31,6 @@ fn report_cleanup(script_path: Option<&String>) {
     for f in &analysis.findings {
         let size = if f.measured { format!("{:.2} GiB", f.bytes as f64 / GIB) } else { "?".into() };
         let flags = [
-            (f.admin, "admin"),
             (f.manual.is_some(), "manual"),
             (!f.running_apps.is_empty(), "app-running"),
         ]

@@ -197,6 +197,11 @@ fn collect_files(
 ) {
     for child in &node.children {
         let child_cat = child_category(child, category, level + 1);
+        // Windows'un kendi dosyaları (hiberfil.sys, pagefile.sys, C:\Windows...) haritada kalır ama
+        // listede yer almaz: kullanıcının silebileceği ya da taşıyabileceği şeyler değil.
+        if child_cat == Category::System {
+            continue;
+        }
         match child.kind {
             Kind::File => {
                 let threshold = if heap.len() < limit { 0 } else { heap.peek().map_or(0, |r| r.0 .0) };

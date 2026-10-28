@@ -7,8 +7,6 @@ nothing_removed = "No se pudo quitar nada; es posible que todo esté en uso."
 in_use = "{count} elementos estaban en uso y se omitieron"
 restart_pending = "Una actualización está esperando un reinicio. Reinicia primero el equipo o este paso se omitirá."
 all_drives = "Todas las unidades"
-elevation_declined = "No se concedió permiso de administrador; se omitió."
-elevation_failed = "No se pudo ejecutar el paso de administrador: {error}"
 
 [rules.user-temp]
 name = "Archivos temporales"
@@ -19,16 +17,19 @@ effect = "Ningún efecto. Se omiten los archivos usados en los últimos 7 días 
 name = "Archivos temporales de Windows"
 about = "La carpeta temporal común que usan Windows y sus servicios."
 effect = "Ningún efecto. Se omiten los archivos usados en los últimos 7 días y los que están abiertos."
+manual = "Configuración > Sistema > Almacenamiento > Archivos temporales > marca «Archivos temporales» y quítalos."
 
 [rules.update-cache]
 name = "Descargas de Windows Update"
 about = "Archivos de instalación descargados de actualizaciones ya instaladas."
 effect = "Ningún efecto. Se omite mientras una actualización espera un reinicio; Windows vuelve a descargar lo que necesita en la próxima actualización."
+manual = "Configuración > Sistema > Almacenamiento > Archivos temporales > marca «Limpieza de Windows Update» y quítalos."
 
 [rules.delivery-optimization]
 name = "Caché de Optimización de distribución"
 about = "Copias que Windows guarda para compartir actualizaciones con otros equipos de tu red."
 effect = "Ningún efecto."
+manual = "Configuración > Sistema > Almacenamiento > Archivos temporales > marca «Archivos de optimización de distribución» y quítalos."
 
 [rules.error-reports]
 name = "Volcados de bloqueo e informes de errores"
@@ -39,16 +40,19 @@ effect = "Ningún efecto, salvo que pienses enviar un informe de bloqueo a un de
 name = "Informes de errores del sistema"
 about = "Informes de errores de Windows y de los programas, ya enviados o en cola."
 effect = "Ningún efecto."
+manual = "Configuración > Sistema > Almacenamiento > Archivos temporales > marca las opciones de informes de errores de Windows y quítalos."
 
 [rules.minidumps]
 name = "Minivolcados de pantalla azul"
 about = "Pequeños volcados que se guardan en cada pantalla azul. Sirven para averiguar la causa."
 effect = "Si tuviste una pantalla azul en los últimos 30 días y la estás investigando, consérvalos; si no, ningún efecto."
+manual = "Configuración > Sistema > Almacenamiento > Archivos temporales > marca «Archivos de minivolcado de errores del sistema» y quítalos."
 
 [rules.memory-dump]
 name = "Volcado de memoria completo"
 about = "La instantánea completa de la memoria de la última pantalla azul. Suele ser muy grande."
 effect = "Si tuviste una pantalla azul en los últimos 30 días y la estás investigando, consérvalo; si no, ningún efecto."
+manual = "Configuración > Sistema > Almacenamiento > Archivos temporales > marca «Archivos de volcado de memoria de errores del sistema» y quítalos."
 
 [rules.browser-chrome]
 name = "Caché de Chrome"
@@ -124,11 +128,6 @@ effect = "Estos archivos ya no se podrán restaurar. Revisa su contenido antes d
 name = "Instaladores y archivos comprimidos antiguos"
 about = "Instaladores y archivos comprimidos de «Descargas» con más de 30 días."
 effect = "Ningún efecto si el programa ya está instalado. Asegúrate de que ningún archivo comprimido contenga algo que necesites."
-
-[rules.hibernation]
-name = "Archivo de hibernación"
-about = "Donde se guarda la memoria para la hibernación y el Inicio rápido."
-effect = "Se desactivan la hibernación y el Inicio rápido; el arranque puede tardar unos segundos más. Para deshacerlo: powercfg /hibernate on"
 
 [rules.windows-old]
 name = "Instalación anterior de Windows"

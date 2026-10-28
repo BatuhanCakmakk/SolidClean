@@ -60,7 +60,6 @@ export interface Finding {
   manual: string | null;
   category: Category;
   safety: Safety;
-  admin: boolean;
   regenerates: boolean;
   location: string;
   targets: string[];

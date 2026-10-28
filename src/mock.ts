@@ -144,7 +144,6 @@ const finding = (f: Partial<Finding> & Pick<Finding, "id" | "name" | "safety" | 
   effect: L("Bir etkisi yok. Son 7 günde kullanılan ve şu an açık olan dosyalar atlanır.", "No effect. Files used in the last 7 days and files in use are skipped."),
   manual: null,
   category: "cache",
-  admin: false,
   regenerates: true,
   targets: [f.location],
   items: 120,
@@ -197,26 +196,24 @@ const FINDINGS: Finding[] = [
     name: L("Windows Update indirmeleri", "Windows Update downloads"),
     safety: "safe",
     bytes: 1.3 * GB,
-    admin: true,
     location: "C:\\Windows\\SoftwareDistribution\\Download",
     about: L("Kurulmuş güncellemelerin indirilen kurulum dosyaları.", "Downloaded setup files of updates that are already installed."),
-    blocked: L(
-      "Bir güncelleme yeniden başlatma bekliyor. Önce bilgisayarı yeniden başlatın, yoksa bu adım atlanır.",
-      "An update is waiting for a restart. Restart your PC first, or this step is skipped.",
+    manual: L(
+      'Ayarlar > Sistem > Depolama > Geçici dosyalar > "Windows Update Temizleme" seçeneğini işaretleyip kaldırın.',
+      'Settings > System > Storage > Temporary files > select "Windows Update Cleanup" and remove.',
     ),
   }),
-  finding({ id: "windows-temp", name: L("Windows geçici dosyaları", "Windows temporary files"), safety: "safe", bytes: 0, measured: false, admin: true, location: "C:\\Windows\\Temp" }),
   finding({
-    id: "hibernation",
-    name: L("Hazırda bekletme dosyası", "Hibernation file"),
-    safety: "review",
-    bytes: 12.7 * GB,
-    admin: true,
-    regenerates: false,
-    category: "system",
-    location: "C:\\hiberfil.sys",
-    about: L("Hazırda bekletme ve Hızlı Başlangıç için belleğin diske yazıldığı dosya.", "Where memory is saved for hibernation and Fast Startup."),
-    effect: L("Hazırda bekletme ve Hızlı Başlangıç kapanır.", "Hibernation and Fast Startup are turned off."),
+    id: "windows-temp",
+    name: L("Windows geçici dosyaları", "Windows temporary files"),
+    safety: "safe",
+    bytes: 0,
+    measured: false,
+    location: "C:\\Windows\\Temp",
+    manual: L(
+      'Ayarlar > Sistem > Depolama > Geçici dosyalar > "Geçici dosyalar" seçeneğini işaretleyip kaldırın.',
+      'Settings > System > Storage > Temporary files > select "Temporary files" and remove.',
+    ),
   }),
   finding({
     id: "ollama-models",
@@ -297,6 +294,7 @@ function view(node: MockNode, depth: number): TreeNode {
 function filesOf(node: MockNode, path: string, out: FileEntry[]) {
   for (const c of node.all) {
     const p = join(path, c.name);
+    if (c.category === "system") continue;
     if (c.kind === "file") out.push({ name: c.name, path: p, size: c.size, alloc: c.alloc, category: c.category, modified: c.modified });
     else filesOf(c, p, out);
   }
@@ -358,11 +356,11 @@ export const mockApi: Api = {
           : {
               id: f.id,
               name: f.name,
-              status: f.admin ? "partial" : "done",
+              status: f.id === "user-temp" ? "partial" : "done",
               freed: f.bytes * 0.9,
               recycled: mode === "recycle",
-              failedItems: f.admin ? 3 : 0,
-              message: f.admin ? L("3 öğe kullanımda olduğu için atlandı", "3 items were skipped because they are in use") : null,
+              failedItems: f.id === "user-temp" ? 3 : 0,
+              message: f.id === "user-temp" ? L("3 öğe kullanımda olduğu için atlandı", "3 items were skipped because they are in use") : null,
             },
       );
     }

@@ -7,8 +7,6 @@ nothing_removed = "Nichts konnte entfernt werden; womöglich ist alles in Verwen
 in_use = "{count} Elemente waren in Verwendung und wurden übersprungen"
 restart_pending = "Ein Update wartet auf einen Neustart. Starten Sie den PC zuerst neu, sonst wird dieser Schritt übersprungen."
 all_drives = "Alle Laufwerke"
-elevation_declined = "Keine Administratorberechtigung erteilt, übersprungen."
-elevation_failed = "Der Administratorschritt konnte nicht ausgeführt werden: {error}"
 
 [rules.user-temp]
 name = "Temporäre Dateien"
@@ -19,16 +17,19 @@ effect = "Keine Auswirkung. Dateien, die in den letzten 7 Tagen verwendet wurden
 name = "Temporäre Windows-Dateien"
 about = "Der systemweite temporäre Ordner von Windows und seinen Diensten."
 effect = "Keine Auswirkung. Dateien, die in den letzten 7 Tagen verwendet wurden oder gerade geöffnet sind, werden übersprungen."
+manual = "Einstellungen > System > Speicher > Temporäre Dateien > „Temporäre Dateien“ auswählen und entfernen."
 
 [rules.update-cache]
 name = "Windows Update-Downloads"
 about = "Heruntergeladene Installationsdateien bereits installierter Updates."
 effect = "Keine Auswirkung. Wird übersprungen, solange ein Update auf einen Neustart wartet; Windows lädt beim nächsten Update herunter, was es braucht."
+manual = "Einstellungen > System > Speicher > Temporäre Dateien > „Windows Update-Bereinigung“ auswählen und entfernen."
 
 [rules.delivery-optimization]
 name = "Cache der Übermittlungsoptimierung"
 about = "Kopien, die Windows aufbewahrt, um Updates mit anderen PCs im Netzwerk zu teilen."
 effect = "Keine Auswirkung."
+manual = "Einstellungen > System > Speicher > Temporäre Dateien > „Übermittlungsoptimierungsdateien“ auswählen und entfernen."
 
 [rules.error-reports]
 name = "Absturzabbilder und Fehlerberichte"
@@ -39,16 +40,19 @@ effect = "Keine Auswirkung, es sei denn, Sie wollen einem Entwickler einen Abstu
 name = "System-Fehlerberichte"
 about = "Systemweite Fehlerberichte von Windows und Programmen, bereits gesendet oder in der Warteschlange."
 effect = "Keine Auswirkung."
+manual = "Einstellungen > System > Speicher > Temporäre Dateien > die Optionen für Windows-Fehlerberichte auswählen und entfernen."
 
 [rules.minidumps]
 name = "Bluescreen-Minidumps"
 about = "Kleine Abbilder, die bei jedem Bluescreen gespeichert werden. Damit lässt sich die Ursache finden."
 effect = "Hatten Sie in den letzten 30 Tagen einen Bluescreen und untersuchen ihn, behalten Sie sie; sonst keine Auswirkung."
+manual = "Einstellungen > System > Speicher > Temporäre Dateien > „Minidumpdateien für Systemfehler“ auswählen und entfernen."
 
 [rules.memory-dump]
 name = "Vollständiges Speicherabbild"
 about = "Das komplette Speicherabbild des letzten Bluescreens. Meist sehr groß."
 effect = "Hatten Sie in den letzten 30 Tagen einen Bluescreen und untersuchen ihn, behalten Sie es; sonst keine Auswirkung."
+manual = "Einstellungen > System > Speicher > Temporäre Dateien > „Speicherabbilddateien für Systemfehler“ auswählen und entfernen."
 
 [rules.browser-chrome]
 name = "Chrome-Cache"
@@ -124,11 +128,6 @@ effect = "Diese Dateien lassen sich nicht mehr wiederherstellen. Sehen Sie vor d
 name = "Alte Installer und Archive"
 about = "Installer und komprimierte Archive in „Downloads“, die älter als 30 Tage sind."
 effect = "Keine Auswirkung, wenn das Programm schon installiert ist. Prüfen Sie, dass kein Archiv etwas Benötigtes enthält."
-
-[rules.hibernation]
-name = "Ruhezustandsdatei"
-about = "Hier wird der Arbeitsspeicher für den Ruhezustand und den Schnellstart gesichert."
-effect = "Ruhezustand und Schnellstart werden ausgeschaltet; der Start kann ein paar Sekunden länger dauern. Rückgängig: powercfg /hibernate on"
 
 [rules.windows-old]
 name = "Vorherige Windows-Installation"

@@ -52,9 +52,6 @@ pub struct Messages {
     pub in_use: String,
     pub restart_pending: String,
     pub all_drives: String,
-    pub elevation_declined: String,
-    /// `{error}` hata metniyle değiştirilir.
-    pub elevation_failed: String,
 }
 
 #[derive(Deserialize, Default)]
@@ -125,8 +122,7 @@ mod tests {
         for (lang, code) in all() {
             let m = messages(lang);
             assert!(m.in_use.contains("{count}"), "{code}: in_use");
-            assert!(m.elevation_failed.contains("{error}"), "{code}: elevation_failed");
-            for text in [&m.close_apps, &m.command_failed, &m.nothing_removed, &m.restart_pending, &m.all_drives, &m.elevation_declined] {
+            for text in [&m.close_apps, &m.command_failed, &m.nothing_removed, &m.restart_pending, &m.all_drives] {
                 assert!(!text.trim().is_empty(), "{code}: boş mesaj");
             }
         }

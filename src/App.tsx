@@ -449,6 +449,7 @@ export default function App() {
               {largest.map((f) => (
                 <li key={f.path}>
                   <button
+                    className="file-row"
                     onClick={() =>
                       setFocus({ ...f, label: f.name, kind: "file", flags: 0, files: 1, dirs: 0, cleanup: null })
                     }
@@ -461,6 +462,14 @@ export default function App() {
                       <span className="file-path">{f.path.slice(0, f.path.length - f.name.length - 1)}</span>
                     </span>
                     <span className="file-size">{formatBytes(f.alloc)}</span>
+                  </button>
+                  <button
+                    className="file-open"
+                    onClick={() => reveal(f.path)}
+                    title={t.showInExplorer}
+                    aria-label={`${t.showInExplorer}: ${f.name}`}
+                  >
+                    <OpenIcon />
                   </button>
                 </li>
               ))}
@@ -624,9 +633,7 @@ function FocusBar({
         )}
       </div>
       <button className="btn small with-icon" onClick={() => onReveal(item.path)}>
-        <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">
-          <path d="M9 2.5h4.5V7M13.5 2.5 7.5 8.5M6 3.5H4A1.5 1.5 0 0 0 2.5 5v7A1.5 1.5 0 0 0 4 13.5h7a1.5 1.5 0 0 0 1.5-1.5v-2" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        <OpenIcon />
         {t.showInExplorer}
       </button>
       {app && (
@@ -655,6 +662,14 @@ function writeIgnored(ids: string[]) {
   } catch {
     // Depolama kapalıysa liste yalnızca bu oturumda geçerli.
   }
+}
+
+function OpenIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M9 2.5h4.5V7M13.5 2.5 7.5 8.5M6 3.5H4A1.5 1.5 0 0 0 2.5 5v7A1.5 1.5 0 0 0 4 13.5h7a1.5 1.5 0 0 0 1.5-1.5v-2" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
 }
 
 function KindIcon({ kind }: { kind: NodeKind }) {

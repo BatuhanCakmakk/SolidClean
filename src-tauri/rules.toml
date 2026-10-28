@@ -17,6 +17,8 @@
 # wait_for_restart: bir güncelleme yeniden başlatma bekliyorsa temizlenmez
 # review_if_recent_days: hedefte bu kadar günden yeni değişiklik varsa öneri "review" olur
 # services:      temizlikten önce durdurulup sonra başlatılan Windows hizmetleri
+# admin:         yönetici izni gerekir. Uygulama yetki yükseltmez, bu yüzden manual zorunludur
+#                (yalnızca ölçülür; kullanıcı Windows Ayarlar'ından temizler)
 #
 # Silme hedefleri ayrıca safety.rs'deki koruma listesinden geçer; bu dosyada bir hata
 # olsa bile Windows, Program Files veya kişisel klasörler silinemez.
@@ -51,6 +53,7 @@ regenerates = true
 name = { tr = "Windows geçici dosyaları", en = "Windows temporary files" }
 about = { tr = "Windows'un ve hizmetlerin kullandığı sistem geneli geçici klasör.", en = "The system-wide temporary folder used by Windows and its services." }
 effect = { tr = "Bir etkisi yok. Son 7 günde kullanılan ve şu an açık olan dosyalar atlanır.", en = "No effect. Files used in the last 7 days and files in use are skipped." }
+manual = { tr = "Ayarlar > Sistem > Depolama > Geçici dosyalar > \"Geçici dosyalar\" seçeneğini işaretleyip kaldırın.", en = "Settings > System > Storage > Temporary files > select \"Temporary files\" and remove." }
 
 [[rule]]
 id = "update-cache"
@@ -66,6 +69,7 @@ regenerates = true
 name = { tr = "Windows Update indirmeleri", en = "Windows Update downloads" }
 about = { tr = "Kurulmuş güncellemelerin indirilen kurulum dosyaları.", en = "Downloaded setup files of updates that are already installed." }
 effect = { tr = "Bir etkisi yok. Yeniden başlatma bekleyen bir güncelleme varsa temizlenmez; Windows bir sonraki güncellemede gerekenleri yeniden indirir.", en = "No effect. Skipped while an update is waiting for a restart; Windows downloads what it needs again at the next update." }
+manual = { tr = "Ayarlar > Sistem > Depolama > Geçici dosyalar > \"Windows Update Temizleme\" seçeneğini işaretleyip kaldırın.", en = "Settings > System > Storage > Temporary files > select \"Windows Update Cleanup\" and remove." }
 
 [[rule]]
 id = "delivery-optimization"
@@ -80,6 +84,7 @@ regenerates = true
 name = { tr = "Teslim İyileştirme önbelleği", en = "Delivery Optimization cache" }
 about = { tr = "Windows'un güncellemeleri ağdaki diğer bilgisayarlarla paylaşmak için tuttuğu kopyalar.", en = "Copies Windows keeps to share updates with other PCs on your network." }
 effect = { tr = "Bir etkisi yok.", en = "No effect." }
+manual = { tr = "Ayarlar > Sistem > Depolama > Geçici dosyalar > \"Teslim İyileştirme Dosyaları\" seçeneğini işaretleyip kaldırın.", en = "Settings > System > Storage > Temporary files > select \"Delivery Optimization Files\" and remove." }
 
 [[rule]]
 id = "error-reports"
@@ -108,6 +113,7 @@ admin = true
 name = { tr = "Sistem hata raporları", en = "System error reports" }
 about = { tr = "Windows'un ve programların sistem genelinde tuttuğu, gönderilmiş ya da sırada bekleyen hata raporları.", en = "System-wide error reports from Windows and programs, already sent or waiting in the queue." }
 effect = { tr = "Bir etkisi yok.", en = "No effect." }
+manual = { tr = "Ayarlar > Sistem > Depolama > Geçici dosyalar > Windows hata raporlarıyla ilgili seçenekleri işaretleyip kaldırın.", en = "Settings > System > Storage > Temporary files > select the Windows error reporting options and remove." }
 
 # Mavi ekran dökümleri sorunun nedenini bulmak için gerekir: son 30 gündeyse "gözden geçir"e düşer.
 
@@ -122,6 +128,7 @@ review_if_recent_days = 30
 name = { tr = "Mavi ekran küçük dökümleri", en = "Blue screen minidumps" }
 about = { tr = "Her mavi ekranda kaydedilen küçük dökümler. Sorunun nedenini bulmak için kullanılır.", en = "Small dumps saved at every blue screen. Used to find out what caused it." }
 effect = { tr = "Son 30 günde mavi ekran olduysa ve nedenini araştırıyorsanız silmeyin; değilse bir etkisi yok.", en = "If you had a blue screen in the last 30 days and are looking into it, keep them; otherwise no effect." }
+manual = { tr = "Ayarlar > Sistem > Depolama > Geçici dosyalar > \"Sistem hatası küçük döküm dosyaları\" seçeneğini işaretleyip kaldırın.", en = "Settings > System > Storage > Temporary files > select \"System error minidump files\" and remove." }
 
 [[rule]]
 id = "memory-dump"
@@ -134,6 +141,7 @@ review_if_recent_days = 30
 name = { tr = "Tam bellek dökümü", en = "Full memory dump" }
 about = { tr = "Son mavi ekranda belleğin tamamının kaydedildiği dosya. Genellikle çok büyüktür.", en = "The full memory snapshot from the last blue screen. Usually very large." }
 effect = { tr = "Son 30 günde mavi ekran olduysa ve nedenini araştırıyorsanız silmeyin; değilse bir etkisi yok.", en = "If you had a blue screen in the last 30 days and are looking into it, keep it; otherwise no effect." }
+manual = { tr = "Ayarlar > Sistem > Depolama > Geçici dosyalar > \"Sistem hatası bellek döküm dosyaları\" seçeneğini işaretleyip kaldırın.", en = "Settings > System > Storage > Temporary files > select \"System error memory dump files\" and remove." }
 
 [[rule]]
 id = "browser-chrome"
@@ -334,18 +342,6 @@ older_than_days = 30
 name = { tr = "Eski kurulum dosyaları ve arşivler", en = "Old installers and archives" }
 about = { tr = "İndirilenler klasöründe 30 günden eski kurulum dosyaları ve sıkıştırılmış arşivler.", en = "Installers and compressed archives in Downloads that are older than 30 days." }
 effect = { tr = "Program zaten kuruluysa bir etkisi yok. Arşivlerin içinde ihtiyacınız olan bir şey olmadığından emin olun.", en = "No effect if the program is already installed. Make sure no archive holds something you need." }
-
-[[rule]]
-id = "hibernation"
-safety = "review"
-category = "system"
-kind = "file"
-paths = ['%SystemDrive%\hiberfil.sys']
-admin = true
-command = "powercfg /hibernate off"
-name = { tr = "Hazırda bekletme dosyası", en = "Hibernation file" }
-about = { tr = "Hazırda bekletme ve Hızlı Başlangıç için belleğin diske yazıldığı dosya.", en = "Where memory is saved for hibernation and Fast Startup." }
-effect = { tr = "Hazırda bekletme ve Hızlı Başlangıç kapanır, açılış birkaç saniye uzayabilir. Geri açmak için: powercfg /hibernate on", en = "Hibernation and Fast Startup are turned off; startup may take a few seconds longer. To undo: powercfg /hibernate on" }
 
 [[rule]]
 id = "windows-old"

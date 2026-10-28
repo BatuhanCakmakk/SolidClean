@@ -1188,8 +1188,15 @@ select {
   overflow-y: auto;
 }
 
-.largest button {
-  width: 100%;
+.largest li {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.largest .file-row {
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1201,8 +1208,27 @@ select {
   cursor: pointer;
 }
 
-.largest button:hover {
+.largest .file-row:hover {
   background: var(--soft);
+}
+
+.file-open {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 7px;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.file-open:hover {
+  background: var(--soft);
+  color: var(--text);
 }
 
 .largest i {

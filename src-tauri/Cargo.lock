@@ -2866,7 +2866,7 @@ dependencies = [
 
 [[package]]
 name = "solidclean"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "rayon",
  "serde",

@@ -7,7 +7,8 @@ Diller: English, Türkçe, Deutsch, Français, Español, Português (Brasil), It
 
 > Durum: Faz 4 — Microsoft Store için MSIX paketi. Seçilen öneriler onaydan sonra
 > varsayılan olarak Geri Dönüşüm Kutusu'na taşınır; kalıcı silme ayrıca seçilmelidir.
-> Yönetici gerektiren adımlar için Windows izin penceresi (UAC) açılır.
+> Yönetici gerektiren temizlikler (ör. Windows Update önbelleği, Windows.old) yalnızca
+> ölçülür; nasıl yapılacağı Windows Ayarlar'ından gösterilir. Uygulama yönetici izni istemez.
 
 ## Geliştirme
 
@@ -38,9 +39,9 @@ npm run msix             # release derler, src-tauri/target/msix/SolidClean_<sü
 npm run msix:assets      # ikon değiştiğinde Store/Başlat/görev çubuğu PNG'lerini yeniden üretir
 ```
 
-- `src-tauri/msix/AppxManifest.xml`: manifest şablonu. AppData yazma sanallaştırması kapalı
-  (yoksa diğer uygulamaların önbelleklerini silmek yalnızca paketin sanal katmanında olurdu),
-  UAC yardımcısı için `allowElevation` açık. En düşük sürüm Windows 10 2004 (19041).
+- `src-tauri/msix/AppxManifest.xml`: manifest şablonu. Tek kısıtlı yetenek `runFullTrust`.
+  AppData sanallaştırması açık; 1903'ten beri var olan dosyaların silinmesi gerçek konumda
+  olur. En düşük sürüm Windows 10 2004 (19041).
 - `src-tauri/msix/identity.json`: paket kimliği. Store'a yüklemeden önce Partner Center'daki
   "Product identity" değerleriyle değiştirin.
 - `store/`: mağaza metinleri (TR/EN), kısıtlı yetenek gerekçeleri, gizlilik politikası.
@@ -66,7 +67,6 @@ powershell -Command "Add-AppxPackage -Register src-tauri\target\msix\layout\Appx
 | `src-tauri/src/locale.rs` | Dil seçimi; eksik çeviri testlerde yakalanır |
 | `src-tauri/src/cleanup.rs` | Kuralları uygular, boyut ölçer, çalışan uygulamaları bulur |
 | `src-tauri/src/clean.rs` | Temizliği yapar: Geri Dönüşüm Kutusu'na taşır ya da kalıcı siler (junction takip etmez) |
-| `src-tauri/src/elevate.rs` | Yönetici gerektiren adımları UAC ile ayrı bir yardımcı süreçte çalıştırır |
 | `src-tauri/src/history.rs` | Temizlik geçmişi (`%LOCALAPPDATA%\SolidClean\history.json`) |
 | `src-tauri/src/safety.rs` | Silme koruması: Windows, Program Files ve kişisel klasörler asla hedef olamaz |
 | `src-tauri/src/apps.rs` | Yüklü uygulamalar (Uninstall kayıtları, salt okunur); klasörün sahibini bulur, kaldırma için Ayarlar'ı açar |

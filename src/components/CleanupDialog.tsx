@@ -74,7 +74,6 @@ function Confirm(props: {
   const { findings, total, mode, setMode, onCancel, onStart } = props;
   const has = (id: string) => findings.some((f) => f.id === id);
   const notes = [
-    findings.some((f) => f.admin) ? t.adminNote : null,
     has("recycle-bin") ? t.recycleBinNote : null,
     has("old-downloads") && mode === "permanent" ? t.downloadsNote : null,
     findings.some((f) => f.category === "ai") && mode === "permanent" ? t.aiNote : null,
@@ -88,7 +87,6 @@ function Confirm(props: {
           <li key={f.id}>
             <span className="cleanup-name">
               {f.name}
-              {f.admin && <span className="tag">{t.needsAdmin}</span>}
             </span>
             <span className="cleanup-size">{f.measured ? formatBytes(f.bytes) : "?"}</span>
             {f.runningApps.length > 0 && <span className="cleanup-warn">{t.appsRunning(f.runningApps.join(", "))}</span>}

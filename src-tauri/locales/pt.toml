@@ -7,8 +7,6 @@ nothing_removed = "Nada pôde ser removido; talvez tudo esteja em uso."
 in_use = "{count} itens estavam em uso e foram ignorados"
 restart_pending = "Uma atualização está aguardando reinicialização. Reinicie o PC primeiro, senão esta etapa será ignorada."
 all_drives = "Todas as unidades"
-elevation_declined = "A permissão de administrador não foi concedida; etapa ignorada."
-elevation_failed = "A etapa de administrador não pôde ser executada: {error}"
 
 [rules.user-temp]
 name = "Arquivos temporários"
@@ -19,16 +17,19 @@ effect = "Nenhum efeito. Arquivos usados nos últimos 7 dias e arquivos abertos 
 name = "Arquivos temporários do Windows"
 about = "A pasta temporária geral usada pelo Windows e por seus serviços."
 effect = "Nenhum efeito. Arquivos usados nos últimos 7 dias e arquivos abertos são ignorados."
+manual = "Configurações > Sistema > Armazenamento > Arquivos temporários > marque “Arquivos temporários” e remova."
 
 [rules.update-cache]
 name = "Downloads do Windows Update"
 about = "Arquivos de instalação baixados de atualizações já instaladas."
 effect = "Nenhum efeito. É ignorado enquanto uma atualização aguarda reinicialização; o Windows baixa de novo o que precisar na próxima atualização."
+manual = "Configurações > Sistema > Armazenamento > Arquivos temporários > marque “Limpeza do Windows Update” e remova."
 
 [rules.delivery-optimization]
 name = "Cache da Otimização de Entrega"
 about = "Cópias que o Windows guarda para compartilhar atualizações com outros PCs da sua rede."
 effect = "Nenhum efeito."
+manual = "Configurações > Sistema > Armazenamento > Arquivos temporários > marque “Arquivos de Otimização de Entrega” e remova."
 
 [rules.error-reports]
 name = "Despejos de falha e relatórios de erro"
@@ -39,16 +40,19 @@ effect = "Nenhum efeito, a menos que você pretenda enviar um relatório de falh
 name = "Relatórios de erro do sistema"
 about = "Relatórios de erro do Windows e de programas, já enviados ou na fila."
 effect = "Nenhum efeito."
+manual = "Configurações > Sistema > Armazenamento > Arquivos temporários > marque as opções de relatórios de erros do Windows e remova."
 
 [rules.minidumps]
 name = "Minidespejos de tela azul"
 about = "Pequenos despejos salvos a cada tela azul. Servem para descobrir a causa."
 effect = "Se você teve uma tela azul nos últimos 30 dias e está investigando, guarde-os; caso contrário, nenhum efeito."
+manual = "Configurações > Sistema > Armazenamento > Arquivos temporários > marque “Arquivos de minidespejo de erros do sistema” e remova."
 
 [rules.memory-dump]
 name = "Despejo de memória completo"
 about = "A captura completa da memória da última tela azul. Costuma ser muito grande."
 effect = "Se você teve uma tela azul nos últimos 30 dias e está investigando, guarde-o; caso contrário, nenhum efeito."
+manual = "Configurações > Sistema > Armazenamento > Arquivos temporários > marque “Arquivos de despejo de memória de erros do sistema” e remova."
 
 [rules.browser-chrome]
 name = "Cache do Chrome"
@@ -124,11 +128,6 @@ effect = "Esses arquivos não poderão mais ser restaurados. Confira o conteúdo
 name = "Instaladores e arquivos compactados antigos"
 about = "Instaladores e arquivos compactados na pasta Downloads com mais de 30 dias."
 effect = "Nenhum efeito se o programa já estiver instalado. Confira se nenhum arquivo compactado guarda algo de que você precisa."
-
-[rules.hibernation]
-name = "Arquivo de hibernação"
-about = "Onde a memória é salva para a hibernação e a Inicialização rápida."
-effect = "A hibernação e a Inicialização rápida são desativadas; a inicialização pode levar alguns segundos a mais. Para desfazer: powercfg /hibernate on"
 
 [rules.windows-old]
 name = "Instalação anterior do Windows"

@@ -104,7 +104,7 @@ pub fn execute(
 
 fn execute_one(rule: &Rule, finding: &Finding, mode: Mode, lang: Lang, running: &HashSet<String>) -> Outcome {
     let m = locale::messages(lang);
-    if !rule.deletes_targets() && !rule.command_only() && rule.kind != Kind::RecycleBin {
+    if rule.is_manual() || (!rule.deletes_targets() && !rule.command_only() && rule.kind != Kind::RecycleBin) {
         // Elle yapılan kurallar arayüzde seçilemez; yine de gelirse dokunmayız.
         return Outcome::skipped(finding, String::new());
     }

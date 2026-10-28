@@ -3,7 +3,6 @@ mod category;
 mod clean;
 pub mod cleanup;
 pub mod drives;
-pub mod elevate;
 mod history;
 mod locale;
 mod safety;
@@ -182,8 +181,8 @@ async fn analyze_cleanup(state: State<'_, AppState>, lang: String) -> Result<Vec
     Ok(findings)
 }
 
-/// Seçilen önerileri uygular. Hedefler burada diskten yeniden çözülür; yönetici gerektirenler
-/// tek bir UAC onayıyla ayrı bir süreçte çalışır. Her öneri başlarken `cleanup-progress` yayılır.
+/// Seçilen önerileri uygular. Hedefler burada diskten yeniden çözülür. Yönetici gerektiren
+/// kurallar elle yapılır (Store paketi yetki yükseltemez). Her öneri başlarken `cleanup-progress` yayılır.
 #[tauri::command]
 async fn run_cleanup(
     app: AppHandle,
@@ -199,22 +198,10 @@ async fn run_cleanup(
     let outcomes = tauri::async_runtime::spawn_blocking(move || {
         let language = cleanup::Lang::parse(&lang);
         let analysis = cleanup::analyze(None, language, Some(&ids));
-        let elevated = elevate::is_elevated();
-        let needs_helper = |f: &cleanup::Finding| analysis.needs_admin(&f.id) && !elevated;
         let emit = |id: &str| {
             let _ = emitter.emit("cleanup-progress", id.to_string());
         };
-
-        let mut outcomes = clean::execute(&analysis, mode, language, |f| !needs_helper(f), emit);
-        let admin: Vec<&cleanup::Finding> = analysis.findings.iter().filter(|f| needs_helper(f)).collect();
-        if !admin.is_empty() {
-            admin.iter().for_each(|f| emit(&f.id));
-            let admin_ids: Vec<String> = admin.iter().map(|f| f.id.clone()).collect();
-            match elevate::run_as_admin(&admin_ids, mode, &lang) {
-                Ok(result) => outcomes.extend(result),
-                Err(e) => outcomes.extend(admin.iter().map(|f| clean::Outcome::skipped(f, e.message(language)))),
-            }
-        }
+        let outcomes = clean::execute(&analysis, mode, language, |_| true, emit);
         history::append(mode, &outcomes);
         outcomes
     })

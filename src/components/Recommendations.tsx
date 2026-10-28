@@ -164,7 +164,6 @@ function Row({ finding: f, checked, open, onToggle, onOpen, onReveal, onIgnore }
               {t.categories[f.category]}
             </span>
             {f.regenerates && <span className="tag">{t.regenerates}</span>}
-            {f.admin && <span className="tag">{t.needsAdmin}</span>}
             {manual && <span className="tag">{t.manualOnly}</span>}
           </div>
           {f.runningApps.length > 0 && <p className="warn">{t.appsRunning(f.runningApps.join(", "))}</p>}

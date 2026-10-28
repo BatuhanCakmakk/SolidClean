@@ -7,8 +7,6 @@ nothing_removed = "Non è stato possibile rimuovere nulla; forse è tutto in uso
 in_use = "{count} elementi erano in uso e sono stati saltati"
 restart_pending = "Un aggiornamento è in attesa di riavvio. Riavvia prima il PC, altrimenti questo passaggio verrà saltato."
 all_drives = "Tutte le unità"
-elevation_declined = "Autorizzazione di amministratore non concessa, passaggio saltato."
-elevation_failed = "Impossibile eseguire il passaggio da amministratore: {error}"
 
 [rules.user-temp]
 name = "File temporanei"
@@ -19,16 +17,19 @@ effect = "Nessun effetto. I file usati negli ultimi 7 giorni e quelli aperti ven
 name = "File temporanei di Windows"
 about = "La cartella temporanea comune usata da Windows e dai suoi servizi."
 effect = "Nessun effetto. I file usati negli ultimi 7 giorni e quelli aperti vengono saltati."
+manual = "Impostazioni > Sistema > Archiviazione > File temporanei > seleziona «File temporanei» e rimuovi."
 
 [rules.update-cache]
 name = "Download di Windows Update"
 about = "File di installazione scaricati per aggiornamenti già installati."
 effect = "Nessun effetto. Viene saltato finché un aggiornamento attende il riavvio; Windows riscarica ciò che serve al prossimo aggiornamento."
+manual = "Impostazioni > Sistema > Archiviazione > File temporanei > seleziona «Pulizia di Windows Update» e rimuovi."
 
 [rules.delivery-optimization]
 name = "Cache di Ottimizzazione recapito"
 about = "Copie che Windows conserva per condividere gli aggiornamenti con altri PC della rete."
 effect = "Nessun effetto."
+manual = "Impostazioni > Sistema > Archiviazione > File temporanei > seleziona «File di ottimizzazione recapito» e rimuovi."
 
 [rules.error-reports]
 name = "Dump di arresto anomalo e segnalazioni errori"
@@ -39,16 +40,19 @@ effect = "Nessun effetto, a meno che tu non voglia inviare una segnalazione di a
 name = "Segnalazioni errori di sistema"
 about = "Segnalazioni errori di Windows e dei programmi, già inviate o in coda."
 effect = "Nessun effetto."
+manual = "Impostazioni > Sistema > Archiviazione > File temporanei > seleziona le opzioni delle segnalazioni errori di Windows e rimuovi."
 
 [rules.minidumps]
 name = "Minidump della schermata blu"
 about = "Piccoli dump salvati a ogni schermata blu. Servono a capirne la causa."
 effect = "Se negli ultimi 30 giorni hai avuto una schermata blu e la stai analizzando, conservali; altrimenti nessun effetto."
+manual = "Impostazioni > Sistema > Archiviazione > File temporanei > seleziona «File minidump errori di sistema» e rimuovi."
 
 [rules.memory-dump]
 name = "Dump completo della memoria"
 about = "L'istantanea completa della memoria dell'ultima schermata blu. Di solito molto grande."
 effect = "Se negli ultimi 30 giorni hai avuto una schermata blu e la stai analizzando, conservalo; altrimenti nessun effetto."
+manual = "Impostazioni > Sistema > Archiviazione > File temporanei > seleziona «File di dump della memoria per errori di sistema» e rimuovi."
 
 [rules.browser-chrome]
 name = "Cache di Chrome"
@@ -124,11 +128,6 @@ effect = "Questi file non potranno più essere ripristinati. Controlla il conten
 name = "Vecchi installer e archivi"
 about = "Installer e archivi compressi nella cartella Download più vecchi di 30 giorni."
 effect = "Nessun effetto se il programma è già installato. Verifica che nessun archivio contenga qualcosa che ti serve."
-
-[rules.hibernation]
-name = "File di ibernazione"
-about = "Dove viene salvata la memoria per l'ibernazione e l'Avvio rapido."
-effect = "Ibernazione e Avvio rapido vengono disattivati; l'avvio può richiedere qualche secondo in più. Per annullare: powercfg /hibernate on"
 
 [rules.windows-old]
 name = "Installazione precedente di Windows"

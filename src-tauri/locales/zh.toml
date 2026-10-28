@@ -7,8 +7,6 @@ nothing_removed = "无法删除任何内容；可能全部正在使用。"
 in_use = "已跳过 {count} 个正在使用的项目"
 restart_pending = "有更新正在等待重启。请先重启电脑，否则将跳过此步骤。"
 all_drives = "所有驱动器"
-elevation_declined = "未获得管理员权限，已跳过。"
-elevation_failed = "无法执行管理员步骤：{error}"
 
 [rules.user-temp]
 name = "临时文件"
@@ -19,16 +17,19 @@ effect = "没有影响。最近 7 天内使用过的文件和正在打开的文�
 name = "Windows 临时文件"
 about = "Windows 及其服务使用的系统级临时文件夹。"
 effect = "没有影响。最近 7 天内使用过的文件和正在打开的文件会被跳过。"
+manual = "设置 > 系统 > 存储 > 临时文件 > 勾选“临时文件”并删除。"
 
 [rules.update-cache]
 name = "Windows 更新下载"
 about = "已安装更新的安装文件。"
 effect = "没有影响。有更新等待重启时会跳过；下次更新时 Windows 会重新下载所需内容。"
+manual = "设置 > 系统 > 存储 > 临时文件 > 勾选“Windows 更新清理”并删除。"
 
 [rules.delivery-optimization]
 name = "传递优化缓存"
 about = "Windows 为与网络中其他电脑共享更新而保留的副本。"
 effect = "没有影响。"
+manual = "设置 > 系统 > 存储 > 临时文件 > 勾选“传递优化文件”并删除。"
 
 [rules.error-reports]
 name = "崩溃转储和错误报告"
@@ -39,16 +40,19 @@ effect = "没有影响，除非你打算把崩溃报告发给开发者。"
 name = "系统错误报告"
 about = "Windows 和程序的系统级错误报告，已发送或在队列中等待。"
 effect = "没有影响。"
+manual = "设置 > 系统 > 存储 > 临时文件 > 勾选Windows 错误报告相关选项并删除。"
 
 [rules.minidumps]
 name = "蓝屏小型转储"
 about = "每次蓝屏时保存的小型转储，用于查找原因。"
 effect = "如果最近 30 天内出现过蓝屏并且正在排查，请保留；否则没有影响。"
+manual = "设置 > 系统 > 存储 > 临时文件 > 勾选“系统错误小型转储文件”并删除。"
 
 [rules.memory-dump]
 name = "完整内存转储"
 about = "上次蓝屏时的完整内存快照，通常非常大。"
 effect = "如果最近 30 天内出现过蓝屏并且正在排查，请保留；否则没有影响。"
+manual = "设置 > 系统 > 存储 > 临时文件 > 勾选“系统错误内存转储文件”并删除。"
 
 [rules.browser-chrome]
 name = "Chrome 缓存"
@@ -124,11 +128,6 @@ effect = "这些文件将无法再还原。清空前请先查看其中的内容�
 name = "旧的安装程序和压缩包"
 about = "“下载”文件夹中超过 30 天的安装程序和压缩包。"
 effect = "如果程序已经安装，则没有影响。请确认压缩包中没有你需要的内容。"
-
-[rules.hibernation]
-name = "休眠文件"
-about = "为休眠和快速启动保存内存内容的位置。"
-effect = "休眠和快速启动将被关闭；开机可能会慢几秒。如需恢复：powercfg /hibernate on"
 
 [rules.windows-old]
 name = "以前的 Windows 安装"

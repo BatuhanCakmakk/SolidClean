@@ -93,10 +93,15 @@ pub(crate) struct Rule {
 }
 
 impl Rule {
-    /// Hedefler doğrudan silinir mi? Yalnızca komut çalıştıran (ör. `powercfg /hibernate off`)
+    /// Hedefler doğrudan silinir mi? Yalnızca komut çalıştıran
     /// ve elle yapılan kurallar hiçbir şey silmez.
     pub(crate) fn deletes_targets(&self) -> bool {
-        self.manual.is_none() && !self.command_only() && matches!(self.kind, Kind::Contents | Kind::File | Kind::Files)
+        !self.is_manual() && !self.command_only() && matches!(self.kind, Kind::Contents | Kind::File | Kind::Files)
+    }
+
+    /// Temizliği kullanıcı Windows'un kendi araçlarıyla yapar; uygulama hiçbir şey çalıştırmaz.
+    pub(crate) fn is_manual(&self) -> bool {
+        self.manual.is_some()
     }
 
     /// Silme yerine yalnızca bir komut çalıştıran kural (yedek temizliği yok).
@@ -147,7 +152,6 @@ pub struct Finding {
     pub manual: Option<String>,
     pub category: Category,
     pub safety: Safety,
-    pub admin: bool,
     pub regenerates: bool,
     /// Listede gösterilecek kısa konum.
     pub location: String,
@@ -173,9 +177,6 @@ impl Analysis {
         self.rules.get(id)
     }
 
-    pub fn needs_admin(&self, id: &str) -> bool {
-        self.rules.get(id).is_some_and(|r| r.admin)
-    }
 }
 
 fn load_rules() -> Vec<Rule> {
@@ -306,7 +307,6 @@ fn evaluate(rule: &Rule, scan: Option<&ScanResult>, running: &HashSet<String>, l
         manual: rule.manual.as_ref().map(|m| translated.and_then(|t| t.manual.clone()).unwrap_or_else(|| m.get(lang).to_string())),
         category: rule.category,
         safety,
-        admin: rule.admin,
         regenerates: rule.regenerates,
         location,
         targets,
@@ -792,6 +792,11 @@ mod tests {
             assert!(!rule.name.tr.is_empty() && !rule.name.en.is_empty(), "{}", rule.id);
             if rule.kind == Kind::Dir {
                 assert!(rule.manual.is_some(), "{}: dir kuralları elle yapılmalı", rule.id);
+            }
+            // Store paketi yetki yükseltemez (allowElevation yok): yönetici gerektiren temizlik
+            // kullanıcıya Windows'un kendi araçlarıyla yaptırılır.
+            if rule.admin {
+                assert!(rule.manual.is_some(), "{}: yönetici gerektiren kurallar elle yapılmalı", rule.id);
             }
             if !rule.exclude.is_empty() {
                 assert_eq!(rule.kind, Kind::Contents, "{}: exclude yalnızca contents kurallarında", rule.id);

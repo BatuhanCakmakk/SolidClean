@@ -7,8 +7,6 @@ nothing_removed = "Rien n'a pu être supprimé ; tout est peut-être en cours d'
 in_use = "{count} éléments étaient en cours d'utilisation et ont été ignorés"
 restart_pending = "Une mise à jour attend un redémarrage. Redémarrez d'abord le PC, sinon cette étape sera ignorée."
 all_drives = "Tous les lecteurs"
-elevation_declined = "L'autorisation d'administrateur n'a pas été accordée, étape ignorée."
-elevation_failed = "L'étape administrateur n'a pas pu s'exécuter : {error}"
 
 [rules.user-temp]
 name = "Fichiers temporaires"
@@ -19,16 +17,19 @@ effect = "Aucun effet. Les fichiers utilisés ces 7 derniers jours et ceux qui s
 name = "Fichiers temporaires de Windows"
 about = "Le dossier temporaire commun utilisé par Windows et ses services."
 effect = "Aucun effet. Les fichiers utilisés ces 7 derniers jours et ceux qui sont ouverts sont ignorés."
+manual = "Paramètres > Système > Stockage > Fichiers temporaires > cochez « Fichiers temporaires » et supprimez."
 
 [rules.update-cache]
 name = "Téléchargements de Windows Update"
 about = "Fichiers d'installation téléchargés de mises à jour déjà installées."
 effect = "Aucun effet. Ignoré tant qu'une mise à jour attend un redémarrage ; Windows retélécharge ce dont il a besoin à la prochaine mise à jour."
+manual = "Paramètres > Système > Stockage > Fichiers temporaires > cochez « Nettoyage de Windows Update » et supprimez."
 
 [rules.delivery-optimization]
 name = "Cache de l'Optimisation de la distribution"
 about = "Copies que Windows conserve pour partager les mises à jour avec d'autres PC de votre réseau."
 effect = "Aucun effet."
+manual = "Paramètres > Système > Stockage > Fichiers temporaires > cochez « Fichiers d’optimisation de livraison » et supprimez."
 
 [rules.error-reports]
 name = "Vidages sur incident et rapports d'erreurs"
@@ -39,16 +40,19 @@ effect = "Aucun effet, sauf si vous comptez envoyer un rapport de plantage à un
 name = "Rapports d'erreurs système"
 about = "Rapports d'erreurs de Windows et des programmes, déjà envoyés ou en file d'attente."
 effect = "Aucun effet."
+manual = "Paramètres > Système > Stockage > Fichiers temporaires > cochez les options des rapports d’erreurs Windows et supprimez."
 
 [rules.minidumps]
 name = "Minidumps d'écran bleu"
 about = "Petits vidages enregistrés à chaque écran bleu. Ils servent à en trouver la cause."
 effect = "Si vous avez eu un écran bleu ces 30 derniers jours et que vous l'étudiez, gardez-les ; sinon aucun effet."
+manual = "Paramètres > Système > Stockage > Fichiers temporaires > cochez « Fichiers de minividage sur erreurs système » et supprimez."
 
 [rules.memory-dump]
 name = "Vidage mémoire complet"
 about = "La capture complète de la mémoire lors du dernier écran bleu. Souvent très volumineuse."
 effect = "Si vous avez eu un écran bleu ces 30 derniers jours et que vous l'étudiez, gardez-la ; sinon aucun effet."
+manual = "Paramètres > Système > Stockage > Fichiers temporaires > cochez « Fichiers de vidage de la mémoire sur erreurs système » et supprimez."
 
 [rules.browser-chrome]
 name = "Cache de Chrome"
@@ -124,11 +128,6 @@ effect = "Ces fichiers ne pourront plus être restaurés. Regardez son contenu a
 name = "Anciens installateurs et archives"
 about = "Installateurs et archives compressées de « Téléchargements » datant de plus de 30 jours."
 effect = "Aucun effet si le programme est déjà installé. Vérifiez qu'aucune archive ne contient quelque chose dont vous avez besoin."
-
-[rules.hibernation]
-name = "Fichier de mise en veille prolongée"
-about = "Emplacement où la mémoire est enregistrée pour la mise en veille prolongée et le Démarrage rapide."
-effect = "La mise en veille prolongée et le Démarrage rapide sont désactivés ; le démarrage peut prendre quelques secondes de plus. Pour annuler : powercfg /hibernate on"
 
 [rules.windows-old]
 name = "Installation précédente de Windows"
